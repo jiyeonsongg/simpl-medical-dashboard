@@ -5,7 +5,7 @@ install.packages("poLCA")
 
 library(poLCA)
 
-final_table <- read.csv("C:/Users/jyson/dsc180ab/dsc180b-wi24-quarter2/statistical_analysis/cohort_selected.csv")
+final_table <- read.csv("../processed_data/cohort_selected.csv")
 
 final_table$age <- as.factor(final_table$rounded_age)
 
@@ -115,12 +115,45 @@ ggplot(comparison_df, aes(x = nclass)) +
   labs(title = "AIC and BIC Comparison for Different nclass Values", x = "nclass", y = "Criterion Value") +
   theme_minimal()
 
-# RESULT: seems 8 is an optimal number for nclass
+# RESULT: seems 7 is an optimal number for nclass
 final_table$subgroup <- apply(lca_out7$posterior, 1, which.max) 
 subgroup_counts <- table(final_table$subgroup)
 print(subgroup_counts)
 
-for (i in 1:7) {
-  subgroup_data <- final_table[final_table$subgroup == i, ]
-  write.csv(subgroup_data, sprintf("subgroup_%d.csv", i), row.names = FALSE)
+# # Export CSV files
+# for (i in 1:7) {
+#   subgroup_data <- final_table[final_table$subgroup == i, ]
+#   write.csv(subgroup_data, sprintf("subgroup_%d.csv", i), row.names = FALSE)
+# }
+
+# ------------------------------------------------------------------------------
+# Run chi-square test for assessing preferred heterogeneity of morbidity within classes (categorical variables)
+latent_class_memberships <- lca_out$predclass
+significant_p_values <- TRUE 
+
+# Loops through each variable (morbidity) and perform chi-square tests
+for (variable in comorbidity_columns) {
+  contingency_table <- table(final_table[[variable]], latent_class_memberships)
+  
+  # Checks if there are cells with expected frequency < 5
+  if (any(chisq.test(contingency_table)$expected < 5)) {
+    # Performs chi-square test with simulated p-value for small expected frequencies
+    chi_square_result <- chisq.test(contingency_table, simulate.p.value = TRUE, B = 1000)
+  } else {
+    # Performs chi-square test
+    chi_square_result <- chisq.test(contingency_table)
+  }
+  
+  # Checks if the p-value is significant
+  if (chi_square_result$p.value >= 0.05) {
+    significant_p_values <- FALSE
+    break  # No need to continue checking if any p-value is not significant
+  }
+}
+
+# Outputs statement based on the result
+if (significant_p_values) {
+  cat("All p-values are significant (less than 0.05)\nThere is sufficient evidence to conclude all associations between each latent class and morbidity are significant")
+} else {
+  cat("Not all p-values are significant (greater than or equal to 0.05)\n")
 }

@@ -4,17 +4,16 @@
 library(dplyr)
 
 # Step 1: Load the Data
-subgroup_list <- lapply(1:8, function(x) read.csv(paste0("C:/Users/jyson/dsc180ab/dsc180b-wi24-quarter2/subgroup_", x, ".csv")))
+subgroup_list <- lapply(1:7, function(x) read.csv(paste0("../processed_data/subgroup_", x, ".csv")))
 
 # Combine all subgroups into one dataframe
 combined_data <- do.call(rbind, subgroup_list)
-sub1 <- read.csv("C:/Users/jyson/dsc180ab/dsc180b-wi24-quarter2/subgroup_1.csv")
 
 # Define the function
 run_comorbidity_analysis <- function(comorbidity, data) {
   results <- list()
   
-  for (i in 1:8) {
+  for (i in 1:7) {
     subgroup_data <- data[data$subgroup == i, ]
     
     # Define the formula
@@ -34,11 +33,15 @@ run_comorbidity_analysis <- function(comorbidity, data) {
 
 
 # ---------------------------------------------------------------------------------------------------
+
 # Example of using the function
-results_congestive_heart_failure <- run_comorbidity_analysis("congestive_heart_failure", combined_data)
+
+results_congestive_heart_failure <- run_comorbidity_analysis("congestive_heart_failure", subgroup_list)
 results_congestive_heart_failure
 
 results_depression <- run_comorbidity_analysis("depression", combined_data)
+results_depression
+
 
 
 
