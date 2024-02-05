@@ -24,7 +24,7 @@ merged_sofa
 kruskal_test_result <- kruskal.test(sofa ~ subgroup, data = merged_sofa)
 print(kruskal_test_result)
 
-# Step 2: Post-Hoc Test
+# Step 2: Post-Hoc Test (for pairwise;familyise comparisons)
 # If the Kruskal-Wallis test is significant, perform post-hoc analysis
 if(kruskal_test_result$p.value < 0.05){
   post_hoc_result <- dunn.test(merged_sofa$sofa, merged_sofa$subgroup, method = "bonferroni")
@@ -33,3 +33,12 @@ if(kruskal_test_result$p.value < 0.05){
 } else {
   cat("No significant difference found by the Kruskal-Wallis test. Post-hoc test not required.")
 }
+
+# ----------------------------------------------------------------------
+# p-value of 0: suggests there is a statistically significant difference between
+# the median values of the groups tested.
+# REJECT THE NULL HYPOTHESIS(the group medians are equal) --> NOT EQUAL!
+
+# Z: standardized test statistics for each comparison
+# P: original p-values for these comparison
+# P.adjusted: p-values adjusted for multiple comparisons
