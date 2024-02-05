@@ -5,7 +5,7 @@ install.packages("poLCA")
 
 library(poLCA)
 
-final_table <- read.csv("C:/Users/jyson/dsc180ab/dsc180b-wi24-quarter2/cohort.csv")
+final_table <- read.csv("C:/Users/jyson/dsc180ab/dsc180b-wi24-quarter2/statistical_analysis/cohort_selected.csv")
 
 final_table$age <- as.factor(final_table$rounded_age)
 
@@ -116,12 +116,11 @@ ggplot(comparison_df, aes(x = nclass)) +
   theme_minimal()
 
 # RESULT: seems 8 is an optimal number for nclass
-
-final_table$subgroup <- apply(lca_out8$posterior, 1, which.max) 
+final_table$subgroup <- apply(lca_out7$posterior, 1, which.max) 
 subgroup_counts <- table(final_table$subgroup)
 print(subgroup_counts)
 
-for (i in 1:8) {
+for (i in 1:7) {
   subgroup_data <- final_table[final_table$subgroup == i, ]
   write.csv(subgroup_data, sprintf("subgroup_%d.csv", i), row.names = FALSE)
 }
