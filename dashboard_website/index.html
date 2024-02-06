@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard with Visualizations</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header, footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        #dashboard {
+            display: flex;
+            flex: 1;
+        }
+        #sidebar {
+            background: #f4f4f4;
+            padding: 1rem;
+            width: 200px;
+        }
+        #main-content {
+            flex: 1;
+            padding: 1rem;
+        }
+        #visualization-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .visualization {
+            margin: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Subgroups</h1>
+    </header>
+    <div id="dashboard">
+        <aside id="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#">Subgroups</a></li>
+                    <li><a href="#">Sepsis Risk</a></li>
+                    <!-- More links for other visualizations -->
+                </ul>
+            </nav>
+        </aside>
+        <section id="main-content">
+            <div id="visualization-container">
+                <div id="my_dataviz1" class="visualization"></div>
+                <div id="my_dataviz2" class="visualization"></div>
+                <div id="my_dataviz3" class="visualization"></div>
+                <div id="my_dataviz4" class="visualization"></div>
+                <div id="my_dataviz5" class="visualization"></div>
+                <div id="my_dataviz6" class="visualization"></div>
+                <div id="my_dataviz7" class="visualization"></div>
+            </div>
+        </section>
+        <section id="main-content">
+          <div id="visualization-container">
+              <div id="temp_dataviz1" class="visualization"></div>
+          </div>
+      </section>
+    </div>
+    <footer>
+        DSC 180B
+    </footer>
+
+<script>
+// Function to create a radial bar chart
+function createRadialBarChart(svgId, csvFile) {
+    // set the dimensions and margins of the graph
+    var margin = {top: 100, right: 0, bottom: 0, left: 0},
+        width = 460 - margin.left - margin.right,
+        height = 460 - margin.top - margin.bottom,
+        innerRadius = 10,
+        outerRadius = Math.min(width, height) / 3; // the outerRadius goes from the middle of the SVG area to the border
+
+    // append the svg object
+    var svg = d3.select("#" + svgId)
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+
+    // Load data and process it
+    d3.csv(csvFile).then(function(data) {
+        // Sum up the specified columns
+        var conditions = ["congestive_heart_failure","cardiac_arrhythmias","valvular_disease","pulmonary_circulation","peripheral_vascular","hypertension","paralysis","other_neurological","chronic_pulmonary","diabetes_uncomplicated","diabetes_complicated","hypothyroidism","renal_failure","liver_disease","peptic_ulcer","aids","lymphoma","metastatic_cancer","solid_tumor","rheumatoid_arthritis","coagulopathy","obesity","weight_loss","fluid_electrolyte","blood_loss_anemia","deficiency_anemias","alcohol_abuse","drug_abuse","psychoses","depression"];
+        var summedData = conditions.map(function(condition) {
+            return {
+                condition: condition,
+                total: d3.sum(data, function(d) { return +d[condition]; })
+            };
+        });
+
+        // Scales
+        var x = d3.scaleBand()
+            .range([0, 2 * Math.PI])
+            .domain(summedData.map(function(d) { return d.condition; }));
+        var y = d3.scaleRadial()
+            .range([innerRadius, outerRadius])
+            .domain([0, d3.max(summedData, function(d) { return d.total; })]);
+
+        // Add the bars
+        svg.append("g")
+            .selectAll("path")
+            .data(summedData)
+            .enter()
+            .append("path")
+            .attr("fill", "#69b3a2")
+            .attr("d", d3.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(function(d) { return y(d.total); })
+                .startAngle(function(d) { return x(d.condition); })
+                .endAngle(function(d) { return x(d.condition) + x.bandwidth(); })
+                .padAngle(0.01)
+                .padRadius(innerRadius));
+
+        // Add the labels
+        svg.append("g")
+            .selectAll("g")
+            .data(summedData)
+            .enter()
+            .append("g")
+            .attr("text-anchor", function(d) { return (x(d.condition) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+            .attr("transform", function(d) { return "rotate(" + ((x(d.condition) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d.total)+10) + ",0)"; })
+            .append("text")
+            .text(function(d){return(d.condition)})
+            .attr("transform", function(d) { return (x(d.condition) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+            .style("font-size", "11px")
+            .attr("alignment-baseline", "middle");
+    });
+}
+
+createRadialBarChart("my_dataviz1", "subgroup_1 (1).csv");
+createRadialBarChart("my_dataviz2", "subgroup_2 (1).csv");
+createRadialBarChart("my_dataviz3", "subgroup_3 (1).csv");
+createRadialBarChart("my_dataviz4", "subgroup_4 (1).csv");
+createRadialBarChart("my_dataviz5", "subgroup_5.csv");
+createRadialBarChart("my_dataviz6", "subgroup_6 (1).csv");
+createRadialBarChart("my_dataviz7", "subgroup_7 (1).csv");
+
+</script>
+</body>
+</html>
