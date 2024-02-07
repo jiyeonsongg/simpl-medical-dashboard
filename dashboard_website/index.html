@@ -1,92 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard with Visualizations</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        header, footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
-        #dashboard {
-            display: flex;
-            flex: 1;
-        }
-        #sidebar {
-            background: #f4f4f4;
-            padding: 1rem;
-            width: 200px;
-        }
-        #main-content {
-            flex: 1;
-            padding: 1rem;
-        }
-        #visualization-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .visualization {
-            margin: 1rem;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
+<body class="flex flex-col min-h-screen m-0 font-sans">
+    <header class="bg-gray-800 text-white text-center p-4">
         <h1>Subgroups</h1>
     </header>
-    <div id="dashboard">
-        <aside id="sidebar">
+    <div id="dashboard" class="flex flex-1">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64">
             <nav>
-                <ul>
-                    <li><a href="#">Subgroups</a></li>
-                    <li><a href="#">Sepsis Risk</a></li>
-                    <!-- More links for other visualizations -->
+                <ul class="list-none">
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
+                    <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
+                    <!-- More links -->
                 </ul>
             </nav>
         </aside>
-        <section id="main-content">
-            <div id="visualization-container">
-                <div id="my_dataviz1" class="visualization"></div>
-                <div id="my_dataviz2" class="visualization"></div>
-                <div id="my_dataviz3" class="visualization"></div>
-                <div id="my_dataviz4" class="visualization"></div>
-                <div id="my_dataviz5" class="visualization"></div>
-                <div id="my_dataviz6" class="visualization"></div>
-                <div id="my_dataviz7" class="visualization"></div>
+        <section id="main-content" class="flex-1 p-4 flex">
+            <!-- Left Half split into two for subgroups 1-7 -->
+            <div class="w-1/2 p-2 flex">
+                <!-- Left Side for visuals 1-4 -->
+                <div class="w-1/2 p-2 flex flex-col">
+                    <div id="visualization-container-1-4" class="flex flex-col items-center bg-white p-4">
+                        <button onclick="updateText('Subgroup 1')" class="text-blue-500 hover:text-blue-700">Subgroup 1</button>
+                        <div id="my_dataviz1" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 1'); updateTitle('Subgroup 1');"></div>
+                        <button onclick="updateText('Subgroup 2')" class="text-blue-500 hover:text-blue-700">Subgroup 2</button>
+                        <div id="my_dataviz2" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 2'); updateTitle('Subgroup 2');"></div>
+                        <button onclick="updateText('Subgroup 3')" class="text-blue-500 hover:text-blue-700">Subgroup 3</button>
+                        <div id="my_dataviz3" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 3'); updateTitle('Subgroup 3');"></div>
+                        <button onclick="updateText('Subgroup 4')" class="text-blue-500 hover:text-blue-700">Subgroup 4</button>
+                        <div id="my_dataviz4" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 4'); updateTitle('Subgroup 4');"></div>
+                    </div>
+                </div>
+        
+                <!-- Right Side for visuals 5-7 within the left half -->
+                <div class="w-1/2 p-2 flex flex-col">
+                    <div id="visualization-container-5-7" class="flex flex-col items-center bg-white p-4">
+                        <button onclick="updateText('Subgroup 5')" class="text-blue-500 hover:text-blue-700">Subgroup 5</button>
+                        <div id="my_dataviz5" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 5'); updateTitle('Subgroup 5');"></div>
+                        <button onclick="updateText('Subgroup 6')" class="text-blue-500 hover:text-blue-700">Subgroup 6</button>
+                        <div id="my_dataviz6" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 6'); updateTitle('Subgroup 6');"></div>
+                        <button onclick="updateText('Subgroup 7')" class="text-blue-500 hover:text-blue-700">Subgroup 7</button>
+                        <div id="my_dataviz7" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 7'); updateTitle('Subgroup 7');"></div>
+                    </div>
+                    <div id="visualization-container" class="flex flex-col items-center bg-white p-4">
+                        <!-- Vibha add more containers if necessary-->
+                        <div id="temp_dataviz1" class="visualization m-4 p-4 border border-gray-300 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Right Half for Subgroup Text -->
+            <div class="w-1/2 p-2 flex flex-col">
+                <div id="info-container" class="bg-white p-4 h-full">
+                    <h1 id="subgroup-name" class="text-3xl text-center font-bold">Found subgroups:</h1>
+                    <br>
+                    <p id="subgroup-info">Click on a subgroup to see more info</p>
+                </div>
             </div>
         </section>
-        <section id="main-content">
-          <div id="visualization-container">
-            <!-- Vibha add more containers if necessary-->
-              <div id="temp_dataviz1" class="visualization"></div>
-          </div>
-      </section>
+        
     </div>
-    <footer>
+    <footer class="bg-gray-700 text-white text-center p-4">
         DSC 180B
     </footer>
 
 <script>
+
+function updateText(subgroupName) {
+    const infoContainer = document.getElementById('subgroup-info');
+    infoContainer.textContent = `You clicked on ${subgroupName}`;
+}
+
+function updateTitle(subgroupName) {
+    const infoContainer = document.getElementById('subgroup-name');
+    infoContainer.textContent = `${subgroupName}:`
+}
+
 // Function to create a radial bar chart
 function createRadialBarChart(svgId, csvFile) {
     // set the dimensions and margins of the graph
-    var margin = {top: 100, right: 0, bottom: 0, left: 0},
-        width = 460 - margin.left - margin.right,
-        height = 460 - margin.top - margin.bottom,
-        innerRadius = 10,
+    var margin = {top: 0, right: 0, bottom: 0, left: 0},
+        width = 200 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom,
+        innerRadius = 5,
         outerRadius = Math.min(width, height) / 3; // the outerRadius goes from the middle of the SVG area to the border
 
     // append the svg object
@@ -95,7 +97,8 @@ function createRadialBarChart(svgId, csvFile) {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+        .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+        ;
 
     // Load data and process it
     d3.csv(csvFile).then(function(data) {
@@ -142,7 +145,7 @@ function createRadialBarChart(svgId, csvFile) {
             .append("text")
             .text(function(d){return(d.condition)})
             .attr("transform", function(d) { return (x(d.condition) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-            .style("font-size", "11px")
+            .style("font-size", "8px")
             .attr("alignment-baseline", "middle");
     });
 }
