@@ -13,20 +13,273 @@
         <aside id="sidebar" class="bg-gray-100 p-4 w-64">
             <nav>
                 <ul>
-                    <li><a href="index.html" class="text-blue-600 hover:text-blue-800">Subgroups</a></li>
+                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-800">Subgroups</a></li>
                     <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-800">Sepsis Risk</a></li>
+                    <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
                     <!-- More links for other visualizations -->
                 </ul>
             </nav>
         </aside>
         <section id="main-content" class="flex-1 p-4">
-            <div class="development-banner bg-gray-50 text-gray-800 text-center p-5 border border-gray-300 rounded-md my-5">
-                Under Development
+            <!-- JIT Info Row: Split into 4 -->
+            <div class="flex">
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div><strong>ID:</strong> 123456</div>
+                        <div><strong>Age:</strong> 45</div>
+                        <div><strong>Gender:</strong> Male</div>
+                        <div><strong>Admission Type:</strong> Elective</div>
+                    </div>
+                    <h3 class="text-md font-semibold mb-2 text-center">Most Recent J.I.T Information</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><strong>Heart Rate:</strong> 75 bpm</div>
+                        <div><strong>Temperature:</strong> 98.6°F</div>
+                        <div><strong>Respiratory Rate:</strong> 18 bpm</div>
+                        <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
+                    </div>
+                </div>
+                <div id="visualizationt-2" class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                </div>
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <h2 class="text-lg font-semibold mb-4 text-center">Patient Group Analysis</h2>
+                    <div class="text-center p-4 my-4 bg-blue-100 rounded-lg">
+                        <h3 class="text-xl font-bold">Cardiopulmonary Group</h3>
+                        <p class="text-green-600">Likelihood: <span class="font-bold">83%</span></p>
+                    </div>
+                    <p class="text-sm text-gray-600 italic">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
+                </div>
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
+                    <div class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                        <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
+                        <p class="mb-4">This patient has been identified as at medium risk for developing sepsis.</p>
+                    </div>
+                    <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
+                </div>
             </div>
+            <!-- Header: Split into 2 -->
+            <div class="flex mb-4">
+                <div class="flex-1 text-center text-white bg-gray-800 p-4 border border-gray-300 rounded-lg m-1">
+                    Cardiopulmonary
+                </div>
+                <div class="flex-1 text-center text-white bg-gray-800 p-4 border border-gray-300 rounded-lg m-1">
+                    Sepsis Risk
+                </div>
+            </div>
+            <!-- Row 1: Split into 4 -->
+            <div class="flex">
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <svg id="visualization1-1" width="100%" height="200"></svg>
+                </div>
+                <div id="visualization1-2" class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                </div>
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <svg id="visualization1-3" width="100%" height="200"></svg>
+                </div>
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <svg id="visualization1-4" width="100%" height="200"></svg>
+                </div>
+            </div>
+
+            <!-- Row 2: Left half split again, Right half as a single block -->
+            <div class="flex">
+                <!-- Left Half split into two -->
+                <div class="flex w-1/2">
+                    <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                        <svg id="new-visualization1" width="100%" height="200"></svg>
+                    </div>
+                    <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                        <svg id="new-visualization2" width="100%" height="200"></svg>
+                    </div>
+                </div>
+
+                <!-- Right Half as a single block -->
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <svg id="new-visualization3" width="100%" height="200"></svg>
+                </div>
+            </div>
+
+            <!-- Row 3: Split into 2 -->
+            <div class="flex">
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <svg id="visualization2-1" width="100%" height="300"></svg>
+                </div>
+                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <svg id="visualization2-2" width="100%" height="300"></svg>
+                </div>
+            </div>
+
         </section>
     </div>
     <footer class="bg-gray-800 text-white text-center p-4">
         DSC 180B
     </footer>
+    <script>
+        // Load JSON data
+        Promise.all([
+            d3.json('first_day_temps.json')
+            // Add paths for other vitals JSON files
+            // ...
+        ])
+            .then(data => {
+                // Log the loaded data to check its structure
+                console.log(data);
+
+                // Extract relevant data for the chart
+                const allDataArray = Object.entries(data[0].all_temps).map(([charttime, temperature]) => ({
+                    charttime: charttime,
+                    Temperature_average: temperature
+                }));
+
+                // Extract relevant data for subgroup and patient charts
+                const subgroupDataArray = Object.entries(data[0].subgroup_temps).map(([charttime, temperature]) => ({
+                    charttime: charttime,
+                    Temperature_average: temperature
+                }));
+
+                const patientDataArray = Object.entries(data[0].patient_temps).map(([charttime, temperature]) => ({
+                    charttime: charttime,
+                    Temperature_average: temperature
+                }));
+
+                // Create visualizations
+                createScatterPlot('Temperature', allDataArray, 'All Patients', 'all-patients-chart');
+                createScatterPlot('Subgroup Temperature', subgroupDataArray, 'Subgroup', 'subgroup-chart', "visualization1-2");
+                createScatterPlot('Patient Temperature', patientDataArray, 'Patient', 'patient-chart', "visualizationt-2");
+                // Create charts for other vitals
+            })
+            .catch(error => console.error('Error loading JSON data:', error));
+
+        // Function to create scatter plot
+            function createScatterPlot(vitalName, data, chartTitle, containerId, divID) {
+            
+            const container = d3.select('#' + divID);
+
+            // Create a new row for each vital type
+            const row = container.append('div')
+                .attr('class', 'chart-row');
+
+            // Add chart title
+            row.append('h3')
+                .text(`${vitalName} - ${chartTitle}`);
+
+            // Create a new chart container
+            const chartContainer = row.append('div')
+                .attr('id', containerId)
+                .attr('class', 'chart');
+
+            // Calculate width based on the number of charts
+            const numCharts = document.querySelectorAll('.chart').length;
+            const chartWidth = (100 / numCharts) - 2; // Adjust as needed
+
+            // Set the width dynamically
+            chartContainer.style('width', `${chartWidth}%`);
+
+            // Log data to check its structure
+            console.log(data);
+
+            // Extract relevant data for the chart
+            const timeParse = d3.timeParse('%Y-%m-%d %H:%M:%S');
+            const xAccessor = d => timeParse(d.charttime);
+            const yAccessor = d => d.Temperature_average;
+
+            // Log extent of data to check for NaN values
+            console.log('Extent of data:', d3.extent(data, xAccessor), d3.extent(data, yAccessor));
+
+            const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+            const width = 350 - margin.left - margin.right;
+            const height = 200 - margin.top - margin.bottom;
+
+            const svg = chartContainer.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const xScale = d3.scaleTime()
+                .domain(d3.extent(data, xAccessor))
+                .range([0, width]);
+
+            const yScale = d3.scaleLinear()
+                .domain([d3.min(data, yAccessor), d3.max(data, yAccessor)])
+                .range([height, 0]);
+
+            // Log the domain of scales
+            console.log('xScale domain:', xScale.domain());
+            console.log('yScale domain:', yScale.domain());
+
+            // Add scatter plot points
+            svg.selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('cx', d => xScale(xAccessor(d)))
+                .attr('cy', d => yScale(yAccessor(d)))
+                .attr('r', 4)
+                .attr('fill', 'steelblue');
+
+            // Calculate linear regression
+            const regressionData = calculateLinearRegression(data, xAccessor, yAccessor);
+            // Add regression line
+            svg.append('line')
+                .attr('x1', xScale(regressionData[0].x))
+                .attr('y1', yScale(regressionData[0].y))
+                .attr('x2', xScale(regressionData[1].x))
+                .attr('y2', yScale(regressionData[1].y))
+                .attr('stroke', 'red')
+                .attr('stroke-width', 1.5);
+
+            svg.append('g')
+                .attr('transform', `translate(0, ${height})`)
+                .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.timeFormat('%H:%M')))
+                .selectAll('text')
+                .attr('transform', 'rotate(-45)')
+                .style('text-anchor', 'end');
+
+            svg.append('g')
+                .call(d3.axisLeft(yScale).ticks(5));
+
+            svg.append('text')
+                .attr('transform', `translate(${width / 2}, ${height + margin.top + 20})`)
+                .style('text-anchor', 'middle')
+                .text('Time');
+
+            svg.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', 10 - margin.left)
+                .attr('x', 0 - height / 2)
+                .style('text-anchor', 'middle')
+                .text('Temperature');
+        }
+
+        // Function to calculate linear regression
+        function calculateLinearRegression(data, xAccessor, yAccessor) {
+            const xValues = data.map(d => xAccessor(d).getTime());
+            const yValues = data.map(yAccessor);
+            const n = xValues.length;
+
+            // Calculate mean of x and y
+            const xBar = xValues.reduce((a, b) => a + b, 0) / n;
+            const yBar = yValues.reduce((a, b) => a + b, 0) / n;
+
+            // Calculate slope (m) and y-intercept (b)
+            const numerator = xValues.map((x, i) => (x - xBar) * (yValues[i] - yBar)).reduce((a, b) => a + b, 0);
+            const denominator = xValues.map(x => Math.pow(x - xBar, 2)).reduce((a, b) => a + b, 0);
+            const m = numerator / denominator;
+            const b = yBar - m * xBar;
+
+            // Calculate regression line points
+            const xMin = d3.min(xValues);
+            const xMax = d3.max(xValues);
+            const regressionLine = [
+                { x: xMin, y: m * xMin + b },
+                { x: xMax, y: m * xMax + b }
+            ];
+
+            return regressionLine;
+        }
+
+    </script>
 </body>
 </html>
