@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard with Visualizations</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen m-0 font-sans">
+    <header class="bg-gray-800 text-white text-center p-4">
+        <h1>Subgroups</h1>
+    </header>
+    <div id="dashboard" class="flex flex-1">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64">
+            <nav>
+                <ul class="list-none">
+                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
+                    <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
+                    <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
+                    <!-- More links -->
+                </ul>
+            </nav>
+        </aside>
+        <section id="main-content" class="flex-1 p-4 flex">
+            <!-- Left Half split into two for subgroups 1-7 -->
+            <div class="w-1/2 p-2 flex">
+                <!-- Left Side for visuals 1-4 -->
+                <div class="w-1/2 p-2 flex flex-col">
+                    <div id="visualization-container-1-4" class="flex flex-col items-center bg-white p-4">
+                        <button onclick="updateText('Subgroup 1')" class="text-blue-500 hover:text-blue-700">Subgroup 1</button>
+                        <div id="my_dataviz1" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 1'); updateTitle('Subgroup 1');"></div>
+                        <button onclick="updateText('Subgroup 2')" class="text-blue-500 hover:text-blue-700">Subgroup 2</button>
+                        <div id="my_dataviz2" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 2'); updateTitle('Subgroup 2');"></div>
+                        <button onclick="updateText('Subgroup 3')" class="text-blue-500 hover:text-blue-700">Subgroup 3</button>
+                        <div id="my_dataviz3" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 3'); updateTitle('Subgroup 3');"></div>
+                        <button onclick="updateText('Subgroup 4')" class="text-blue-500 hover:text-blue-700">Subgroup 4</button>
+                        <div id="my_dataviz4" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 4'); updateTitle('Subgroup 4');"></div>
+                    </div>
+                </div>
+        
+                <!-- Right Side for visuals 5-7 within the left half -->
+                <div class="w-1/2 p-2 flex flex-col">
+                    <div id="visualization-container-5-7" class="flex flex-col items-center bg-white p-4">
+                        <button onclick="updateText('Subgroup 5')" class="text-blue-500 hover:text-blue-700">Subgroup 5</button>
+                        <div id="my_dataviz5" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 5'); updateTitle('Subgroup 5');"></div>
+                        <button onclick="updateText('Subgroup 6')" class="text-blue-500 hover:text-blue-700">Subgroup 6</button>
+                        <div id="my_dataviz6" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 6'); updateTitle('Subgroup 6');"></div>
+                        <button onclick="updateText('Subgroup 7')" class="text-blue-500 hover:text-blue-700">Subgroup 7</button>
+                        <div id="my_dataviz7" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 7'); updateTitle('Subgroup 7');"></div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Right Half for Subgroup Text -->
+            <div class="w-1/2 p-2 flex flex-col">
+                <div id="info-container" class="bg-white p-4 h-full border border-gray-300 rounded-lg">
+                    <h1 id="subgroup-name" class="text-3xl text-center font-bold">Found subgroups:</h1>
+                    <br>
+                    <p id="subgroup-info">Click on a subgroup to see more info</p>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    <footer class="bg-gray-700 text-white text-center p-4">
+        DSC 180B
+    </footer>
+
+<script>
+
+// Function to update the text in the right half
+function updateText(subgroupName) {
+    const infoContainer = document.getElementById('subgroup-info');
+    infoContainer.textContent = `You clicked on ${subgroupName}`;
+}
+
+// Function to update the header in the right half
+function updateTitle(subgroupName) {
+    const infoContainer = document.getElementById('subgroup-name');
+    infoContainer.textContent = `${subgroupName}:`
+}
+
+// Function to create a radial bar chart
+function createRadialBarChart(svgId, csvFile) {
+    // set the dimensions and margins of the graph
+    var margin = {top: 0, right: 0, bottom: 0, left: 0},
+        width = 300 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom,
+        innerRadius = 5,
+        outerRadius = Math.min(width, height) / 3; // the outerRadius goes from the middle of the SVG area to the border
+
+    // append the svg object
+    var svg = d3.select("#" + svgId)
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")")
+        ;
+
+    // Load data and process it
+    d3.csv(csvFile).then(function(data) {
+        // Sum up the specified columns
+        var conditions = ["congestive_heart_failure","cardiac_arrhythmias","valvular_disease","pulmonary_circulation","peripheral_vascular","hypertension","paralysis","other_neurological","chronic_pulmonary","diabetes_uncomplicated","diabetes_complicated","hypothyroidism","renal_failure","liver_disease","peptic_ulcer","aids","lymphoma","metastatic_cancer","solid_tumor","rheumatoid_arthritis","coagulopathy","obesity","weight_loss","fluid_electrolyte","blood_loss_anemia","deficiency_anemias","alcohol_abuse","drug_abuse","psychoses","depression"];
+        var summedData = conditions.map(function(condition) {
+            return {
+                condition: condition,
+                total: d3.sum(data, function(d) { return +d[condition]; })
+            };
+        });
+
+        // Scales
+        var x = d3.scaleBand()
+            .range([0, 2 * Math.PI])
+            .domain(summedData.map(function(d) { return d.condition; }));
+        var y = d3.scaleRadial()
+            .range([innerRadius, outerRadius])
+            .domain([0, d3.max(summedData, function(d) { return d.total; })]);
+
+        // Add the bars
+        svg.append("g")
+            .selectAll("path")
+            .data(summedData)
+            .enter()
+            .append("path")
+            .attr("fill", "#69b3a2")
+            .attr("d", d3.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(function(d) { return y(d.total); })
+                .startAngle(function(d) { return x(d.condition); })
+                .endAngle(function(d) { return x(d.condition) + x.bandwidth(); })
+                .padAngle(0.01)
+                .padRadius(innerRadius));
+
+        // Add the labels
+        svg.append("g")
+            .selectAll("g")
+            .data(summedData)
+            .enter()
+            .append("g")
+            .attr("text-anchor", function(d) { return (x(d.condition) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+            .attr("transform", function(d) { return "rotate(" + ((x(d.condition) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d.total)+10) + ",0)"; })
+            .append("text")
+            .text(function(d){return(d.condition)})
+            .attr("transform", function(d) { return (x(d.condition) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+            .style("font-size", "8px")
+            .attr("alignment-baseline", "middle");
+    });
+}
+
+// Create all the visuals
+createRadialBarChart("my_dataviz1", "subgroup_1.csv");
+createRadialBarChart("my_dataviz2", "subgroup_2.csv");
+createRadialBarChart("my_dataviz3", "subgroup_3.csv");
+createRadialBarChart("my_dataviz4", "subgroup_4.csv");
+createRadialBarChart("my_dataviz5", "subgroup_5.csv");
+createRadialBarChart("my_dataviz6", "subgroup_6.csv");
+createRadialBarChart("my_dataviz7", "subgroup_7.csv");
+
+</script>
+</body>
+</html>
