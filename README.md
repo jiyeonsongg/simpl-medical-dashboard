@@ -20,7 +20,7 @@ Consists of HTML files for each page in the dashboard, and data for display.
 ### statistical_analysis
 Each statistical analysis has different R libraries. Make sure to install the right libraries before running the code.
 
-*LCA example: *
+_LCA example:_
 1. `install.packages("poLCA")`
 2. `library poLCA`
 
