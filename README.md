@@ -13,7 +13,7 @@ Our project focuses on creating a comprehensive dashboard for predicting sepsis 
 - Mentor: Professor Kyle Shannon: kshannon@ucsd.edu
 
 ### dashboard_website
-
+Consists of HTML files for each page in the dashboard, and data for display.
 
 ### machine_learning
 
