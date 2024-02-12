@@ -30,7 +30,7 @@ Deactivate the environment when all done: <br>
 `deactivate`
 
 ### data_extraction
-- Run the following lines to produce data in processed_data folder:
+- Run the following lines to produce data in processed_data folder:<br>
     `python chartevents_bp.py`<br>
     `python chartevents_hr.py`<br>
     `python chartevents_o2sat.py`<br>
