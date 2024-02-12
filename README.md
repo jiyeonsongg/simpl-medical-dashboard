@@ -13,14 +13,23 @@ Our project focuses on creating a comprehensive dashboard for predicting sepsis 
 - Mentor: Professor Kyle Shannon: kshannon@ucsd.edu
 
 ### dashboard_website
-
+Consists of HTML files for each page in the dashboard, and data for display.
 
 ### machine_learning
+consists of the machine learning models used to predict subgroup and predict sepsis risk 
+01_comborbodity_group_prediction: the model used to predict the subgroups 
+02_vital_sign_subgroup_1_prediction: the model used to predict sepsis risk 
 
 ### statistical_analysis
+Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
+
+Example of _01_lca_8subgroups:_
+1. `install.packages("poLCA")`
+2. `library poLCA`
+3. Run the code
 
 ### environment setup for data_extraction
-create a new virtual environment with the command prompt using<br>
+Create a new virtual environment with the command prompt using<br>
 `python -m dsc180b dsc180b_wi24_quarter2`
 
 Once you have activated your environment, install all required packages using the following command: <br>
