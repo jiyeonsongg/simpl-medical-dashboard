@@ -13,8 +13,8 @@
         <aside id="sidebar" class="bg-gray-100 p-4 w-64">
             <nav>
                 <ul>
-                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-800">Subgroups</a></li>
-                    <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-800">Sepsis Risk</a></li>
+                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
+                    <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
                     <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
                     <!-- More links for other visualizations -->
                 </ul>
@@ -58,10 +58,10 @@
                     <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
                 </div>
             </div>
-            <!-- Header: Split into 2 -->
+            <!-- Headers: Split into 2 -->
             <div class="flex mb-4">
                 <div class="flex-1 text-center text-white bg-gray-800 p-4 border border-gray-300 rounded-lg m-1">
-                    Cardiopulmonary
+                    Subgroup
                 </div>
                 <div class="flex-1 text-center text-white bg-gray-800 p-4 border border-gray-300 rounded-lg m-1">
                     Sepsis Risk
@@ -89,8 +89,7 @@
                     <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
                         <svg id="new-visualization1" width="100%" height="200"></svg>
                     </div>
-                    <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
-                        <svg id="new-visualization2" width="100%" height="200"></svg>
+                    <div id="new-visualization2" class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
                     </div>
                 </div>
 
@@ -144,7 +143,7 @@
                 }));
 
                 // Create visualizations
-                createScatterPlot('Temperature', allDataArray, 'All Patients', 'all-patients-chart');
+                createScatterPlot('Temperature', allDataArray, 'All Patients', 'all-patients-chart', "new-visualization2");
                 createScatterPlot('Subgroup Temperature', subgroupDataArray, 'Subgroup', 'subgroup-chart', "visualization1-2");
                 createScatterPlot('Patient Temperature', patientDataArray, 'Patient', 'patient-chart', "visualizationt-2");
                 // Create charts for other vitals
