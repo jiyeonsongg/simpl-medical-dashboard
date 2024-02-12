@@ -16,6 +16,9 @@ Our project focuses on creating a comprehensive dashboard for predicting sepsis 
 Consists of HTML files for each page in the dashboard, and data for display.
 
 ### machine_learning
+consists of the machine learning models used to predict subgroup and predict sepsis risk 
+01_comborbodity_group_prediction: the model used to predict the subgroups 
+02_vital_sign_subgroup_1_prediction: the model used to predict sepsis risk 
 
 ### statistical_analysis
 Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
