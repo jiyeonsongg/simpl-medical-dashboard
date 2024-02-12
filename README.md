@@ -18,9 +18,14 @@ Consists of HTML files for each page in the dashboard, and data for display.
 ### machine_learning
 
 ### statistical_analysis
+Each statistical analysis has different R libraries. Make sure to install the right libraries before running the code.
+
+*LCA example: *
+1. `install.packages("poLCA")`
+2. `library poLCA`
 
 ### environment setup for data_extraction
-create a new virtual environment with the command prompt using<br>
+Create a new virtual environment with the command prompt using<br>
 `python -m dsc180b dsc180b_wi24_quarter2`
 
 Once you have activated your environment, install all required packages using the following command: <br>
