@@ -18,7 +18,7 @@ Consists of HTML files for each page in the dashboard, and data for display.
 ### machine_learning
 
 ### statistical_analysis
-Each statistical analysis has different R libraries. Make sure to install the right libraries before running the code.
+Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
 
 _01_lca_8subgroups:_
 1. `install.packages("poLCA")`
