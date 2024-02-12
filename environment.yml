@@ -1,0 +1,15 @@
+name: dsc180b
+
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - psycopg2
+  - pandas
+  - scipy
+  - matplotlib
+  - numpy
+
+ 
+
+prefix: C:\Users\vibhasastry\anaconda3\envs\dsc180b
