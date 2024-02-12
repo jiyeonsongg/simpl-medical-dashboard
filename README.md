@@ -20,9 +20,10 @@ Consists of HTML files for each page in the dashboard, and data for display.
 ### statistical_analysis
 Each statistical analysis has different R libraries. Make sure to install the right libraries before running the code.
 
-_LCA example:_
+_01_lca_8subgroups:_
 1. `install.packages("poLCA")`
 2. `library poLCA`
+3. Run the code
 
 ### environment setup for data_extraction
 Create a new virtual environment with the command prompt using<br>
