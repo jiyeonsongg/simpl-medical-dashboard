@@ -6,11 +6,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
-    <header class="bg-gray-800 text-white text-center p-4">
-        <h1>Sepsis Risk</h1>
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
+        <h1>Comorbidity Compass</h1>
     </header>
-    <div id="dashboard" class="flex flex-1">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64">
+    <div id="dashboard" class="flex flex-1 relative">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
                 <ul>
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
@@ -20,10 +21,10 @@
                 </ul>
             </nav>
         </aside>
-        <section id="main-content" class="flex-1 p-4">
+        <section id="main-content" class="flex-1 p-4 grid gap-4">
             <!-- JIT Info Row: Split into 4 -->
-            <div class="flex">
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg m-1">
                     <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div><strong>ID:</strong> 123456</div>
@@ -59,7 +60,7 @@
                 </div>
             </div>
             <!-- Headers: Split into 2 -->
-            <div class="flex mb-4">
+            <div class="grid grid-cols-2 gap-4">
                 <div class="flex-1 text-center text-white bg-gray-800 p-4 border border-gray-300 rounded-lg m-1">
                     Subgroup
                 </div>
@@ -68,43 +69,40 @@
                 </div>
             </div>
             <!-- Row 1: Split into 4 -->
-            <div class="flex">
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg m-1">
                     <svg id="visualization1-1" width="100%" height="200"></svg>
                 </div>
                 <div id="visualization1-2" class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
                 </div>
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg m-1">
                     <svg id="visualization1-3" width="100%" height="200"></svg>
                 </div>
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg m-1">
                     <svg id="visualization1-4" width="100%" height="200"></svg>
                 </div>
             </div>
 
             <!-- Row 2: Left half split again, Right half as a single block -->
-            <div class="flex">
-                <!-- Left Half split into two -->
-                <div class="flex w-1/2">
-                    <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <svg id="new-visualization1" width="100%" height="200"></svg>
                     </div>
-                    <div id="new-visualization2" class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                    <div id="new-visualization2" class="bg-white p-4 border border-gray-300 rounded-lg">
+                        <!-- Visualization Content -->
                     </div>
                 </div>
-
-                <!-- Right Half as a single block -->
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg">
                     <svg id="new-visualization3" width="100%" height="200"></svg>
                 </div>
             </div>
-
             <!-- Row 3: Split into 2 -->
-            <div class="flex">
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg">
                     <svg id="visualization2-1" width="100%" height="300"></svg>
                 </div>
-                <div class="flex-1 bg-white p-4 border border-gray-300 rounded-lg m-1">
+                <div class="bg-white p-4 border border-gray-300 rounded-lg">
                     <svg id="visualization2-2" width="100%" height="300"></svg>
                 </div>
             </div>
@@ -278,6 +276,12 @@
 
             return regressionLine;
         }
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
 
     </script>
 </body>
