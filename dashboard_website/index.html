@@ -6,11 +6,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
-    <header class="bg-gray-800 text-white text-center p-4">
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
         <h1>Comorbidity Compass</h1>
     </header>
-    <div id="dashboard" class="flex flex-1">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64">
+    <div id="dashboard" class="flex flex-1 relative">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
                 <ul>
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
@@ -42,5 +43,13 @@
     <footer class="bg-gray-800 text-white text-center p-4">
         DSC 180B
     </footer>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
 </body>
 </html>

@@ -8,13 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
-    <header class="bg-gray-800 text-white text-center p-4">
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
         <h1>Subgroups</h1>
     </header>
-    <div id="dashboard" class="flex flex-1">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64">
+    <div id="dashboard" class="flex flex-1 relative">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
-                <ul class="list-none">
+                <ul class="list-none">  
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
                     <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
                     <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
@@ -22,45 +23,49 @@
                 </ul>
             </nav>
         </aside>
-        <section id="main-content" class="flex-1 p-4 flex">
-            <!-- Left Half split into two for subgroups 1-7 -->
-            <div class="w-1/2 p-2 flex">
-                <!-- Left Side for visuals 1-4 -->
-                <div class="w-1/2 p-2 flex flex-col">
-                    <div id="visualization-container-1-4" class="flex flex-col items-center bg-white p-4">
-                        <button onclick="updateText('Subgroup 1')" class="text-blue-500 hover:text-blue-700">Subgroup 1</button>
-                        <div id="my_dataviz1" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 1'); updateTitle('Subgroup 1');"></div>
-                        <button onclick="updateText('Subgroup 2')" class="text-blue-500 hover:text-blue-700">Subgroup 2</button>
-                        <div id="my_dataviz2" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 2'); updateTitle('Subgroup 2');"></div>
-                        <button onclick="updateText('Subgroup 3')" class="text-blue-500 hover:text-blue-700">Subgroup 3</button>
-                        <div id="my_dataviz3" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 3'); updateTitle('Subgroup 3');"></div>
-                        <button onclick="updateText('Subgroup 4')" class="text-blue-500 hover:text-blue-700">Subgroup 4</button>
-                        <div id="my_dataviz4" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 4'); updateTitle('Subgroup 4');"></div>
+        <section id="main-content" class="p-4 grid grid-cols-2 gap-4">
+            <!-- Left Half for Visualizations 1-7 -->
+            <div class="flex flex-col">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Left Side for Visualizations 1-4 -->
+                    <div class="flex flex-col">
+                        <div id="visualization-container-1-4" class="flex flex-col items-center bg-white p-4">
+                            <!-- Visualizations 1-4 Buttons and Containers -->
+                            <button onclick="updateText('Subgroup 1')" class="text-blue-500 hover:text-blue-700">Subgroup 1</button>
+                            <div id="my_dataviz1" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 1'); updateTitle('Subgroup 1');"></div>
+                            <button onclick="updateText('Subgroup 2')" class="text-blue-500 hover:text-blue-700">Subgroup 2</button>
+                            <div id="my_dataviz2" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 2'); updateTitle('Subgroup 2');"></div>
+                            <button onclick="updateText('Subgroup 3')" class="text-blue-500 hover:text-blue-700">Subgroup 3</button>
+                            <div id="my_dataviz3" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 3'); updateTitle('Subgroup 3');"></div>
+                            <button onclick="updateText('Subgroup 4')" class="text-blue-500 hover:text-blue-700">Subgroup 4</button>
+                            <div id="my_dataviz4" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 4'); updateTitle('Subgroup 4');"></div>
+                        </div>
                     </div>
-                </div>
-        
-                <!-- Right Side for visuals 5-7 within the left half -->
-                <div class="w-1/2 p-2 flex flex-col">
-                    <div id="visualization-container-5-7" class="flex flex-col items-center bg-white p-4">
-                        <button onclick="updateText('Subgroup 5')" class="text-blue-500 hover:text-blue-700">Subgroup 5</button>
-                        <div id="my_dataviz5" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 5'); updateTitle('Subgroup 5');"></div>
-                        <button onclick="updateText('Subgroup 6')" class="text-blue-500 hover:text-blue-700">Subgroup 6</button>
-                        <div id="my_dataviz6" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 6'); updateTitle('Subgroup 6');"></div>
-                        <button onclick="updateText('Subgroup 7')" class="text-blue-500 hover:text-blue-700">Subgroup 7</button>
-                        <div id="my_dataviz7" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 7'); updateTitle('Subgroup 7');"></div>
+                    <!-- Right Side for Visualizations 5-7 -->
+                    <div class="flex flex-col">
+                        <div id="visualization-container-5-7" class="flex flex-col items-center bg-white p-4">
+                            <!-- Visualizations 5-7 Buttons and Containers -->
+                            <button onclick="updateText('Subgroup 5')" class="text-blue-500 hover:text-blue-700">Subgroup 5</button>
+                            <div id="my_dataviz5" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 5'); updateTitle('Subgroup 5');"></div>
+                            <button onclick="updateText('Subgroup 6')" class="text-blue-500 hover:text-blue-700">Subgroup 6</button>
+                            <div id="my_dataviz6" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 6'); updateTitle('Subgroup 6');"></div>
+                            <button onclick="updateText('Subgroup 7')" class="text-blue-500 hover:text-blue-700">Subgroup 7</button>
+                            <div id="my_dataviz7" class="visualization m-4 p-4 border border-gray-300 rounded-lg cursor-pointer" onclick="updateText('Subgroup 7'); updateTitle('Subgroup 7');"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         
             <!-- Right Half for Subgroup Text -->
-            <div class="w-1/2 p-2 flex flex-col">
+            <div class="flex flex-col">
                 <div id="info-container" class="bg-white p-4 h-full border border-gray-300 rounded-lg">
                     <h1 id="subgroup-name" class="text-3xl text-center font-bold">Found subgroups:</h1>
-                    <br>
-                    <p id="subgroup-info">Click on a subgroup to see more info</p>
+                    <p id="subgroup-info" class="mt-4">Click on a subgroup to see more info</p>
                 </div>
             </div>
         </section>
+        
+        
         
     </div>
     <footer class="bg-gray-700 text-white text-center p-4">
@@ -157,6 +162,13 @@ createRadialBarChart("my_dataviz4", "subgroup_4.csv");
 createRadialBarChart("my_dataviz5", "subgroup_5.csv");
 createRadialBarChart("my_dataviz6", "subgroup_6.csv");
 createRadialBarChart("my_dataviz7", "subgroup_7.csv");
+
+document.getElementById('toggleSidebar').addEventListener('click', function() {
+    var sidebar = document.getElementById('sidebar');
+    // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
+    sidebar.classList.toggle('-translate-x-full');
+    sidebar.classList.toggle('translate-x-0');
+});
 
 </script>
 </body>
