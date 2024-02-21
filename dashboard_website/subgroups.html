@@ -155,13 +155,13 @@ function createRadialBarChart(svgId, csvFile) {
 }
 
 // Create all the visuals
-createRadialBarChart("my_dataviz1", "subgroup_1.csv");
-createRadialBarChart("my_dataviz2", "subgroup_2.csv");
-createRadialBarChart("my_dataviz3", "subgroup_3.csv");
-createRadialBarChart("my_dataviz4", "subgroup_4.csv");
-createRadialBarChart("my_dataviz5", "subgroup_5.csv");
-createRadialBarChart("my_dataviz6", "subgroup_6.csv");
-createRadialBarChart("my_dataviz7", "subgroup_7.csv");
+createRadialBarChart("my_dataviz1", "../processed_data/subgroup_1.csv");
+createRadialBarChart("my_dataviz2", "../processed_data/subgroup_2.csv");
+createRadialBarChart("my_dataviz3", "../processed_data/subgroup_3.csv");
+createRadialBarChart("my_dataviz4", "../processed_data/subgroup_4.csv");
+createRadialBarChart("my_dataviz5", "../processed_data/subgroup_5.csv");
+createRadialBarChart("my_dataviz6", "../processed_data/subgroup_6.csv");
+createRadialBarChart("my_dataviz7", "../processed_data/subgroup_7.csv");
 
 document.getElementById('toggleSidebar').addEventListener('click', function() {
     var sidebar = document.getElementById('sidebar');

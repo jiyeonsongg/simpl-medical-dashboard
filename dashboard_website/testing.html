@@ -6,11 +6,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
-    <header class="bg-gray-800 text-white text-center p-4">
-        <h1>Sepsis Risk</h1>
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
+        <h1>Comorbidity Compass</h1>
     </header>
-    <div id="dashboard" class="flex flex-1">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64">
+    <div id="dashboard" class="flex flex-1 relative">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
                 <ul>
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
@@ -20,15 +21,90 @@
                 </ul>
             </nav>
         </aside>
-        <section id="main-content" class="flex-1 p-4 flex">
-            <!-- Development banner -->
-            <div class="development-banner bg-gray-50 text-gray-800 text-center p-5 border border-gray-300 rounded-md my-5">
-                Under Development
+        <section id="main-content" class="flex-1 p-4 flex flex-col justify-center items-center">
+            <div class="grid grid-cols-2 gap-4 h-full w-full ">
+                <!-- Left side -->
+                <div class="col-span-1 flex flex-col gap-4">
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 h-1/3">Top Section (1/3 of the left side)</div>
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 h-2/3">Bottom Section (2/3 of the left side)</div>
+                </div>
+            
+                <!-- Right side -->
+                <div class="col-span-1 grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 p-4">
+                        <h2 class="text-lg font-semibold mb-4 text-center">Patient Group Analysis</h2>
+
+                    <div class="text-center p-4 my-4 bg-blue-100 rounded-lg">
+                        <h3 class="text-xl font-bold">Cardiopulmonary Group</h3>
+                        <p class="text-green-600">Likelihood: <span class="font-bold">83%</span></p>
+                    </div>
+                    <p class="text-sm text-gray-600 italic">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
+
+                    <!-- Disease selection dropdown -->
+                    <div class="text-center mb-4">
+                        <label for="disease-select" class="block mb-2 text-sm font-medium text-gray-900">Select a Disease:</label>
+                        <select id="disease-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option value="">--Please choose an option--</option>
+                            <option value="congestive_heart_failure">Congestive Heart Failure</option>
+                            <option value="cardiac_arrhythmias">Cardiac Arrhythmias</option>
+                            <option value="valvular_disease">Valvular Disease</option>
+                            <option value="pulmonary_circulation">Pulmonary Circulation Disorders</option>
+                            <option value="peripheral_vascular">Peripheral Vascular Disease</option>
+                            <option value="hypertension">Hypertension</option>
+                            <option value="paralysis">Paralysis</option>
+                            <option value="other_neurological">Other Neurological Disorders</option>
+                            <option value="chronic_pulmonary">Chronic Pulmonary Disease</option>
+                            <option value="diabetes_uncomplicated">Diabetes Uncomplicated</option>
+                            <option value="diabetes_complicated">Diabetes Complicated</option>
+                            <option value="hypothyroidism">Hypothyroidism</option>
+                            <option value="renal_failure">Renal Failure</option>
+                            <option value="liver_disease">Liver Disease</option>
+                            <option value="peptic_ulcer">Peptic Ulcer Disease</option>
+                            <option value="aids">AIDS/HIV</option>
+                            <option value="lymphoma">Lymphoma</option>
+                            <option value="metastatic_cancer">Metastatic Cancer</option>
+                            <option value="solid_tumor">Solid Tumor without Metastasis</option>
+                            <option value="rheumatoid_arthritis">Rheumatoid Arthritis</option>
+                            <option value="coagulopathy">Coagulopathy</option>
+                            <option value="obesity">Obesity</option>
+                            <option value="weight_loss">Weight Loss</option>
+                            <option value="fluid_electrolyte">Fluid and Electrolyte Disorders</option>
+                            <option value="blood_loss_anemia">Blood Loss Anemia</option>
+                            <option value="deficiency_anemias">Deficiency Anemias</option>
+                            <option value="alcohol_abuse">Alcohol Abuse</option>
+                            <option value="drug_abuse">Drug Abuse</option>
+                            <option value="psychoses">Psychoses</option>
+                            <option value="depression">Depression</option>
+                        </select>
+                    </div>
+                    <div id="info-container" class="bg-white p-4 border border-gray-300 rounded-lg">
+                        <h1 id="subgroup-name" class="text-3xl text-center font-bold">Found subgroups:</h1>
+                        <p id="subgroup-info" class="mt-4">Click on a subgroup to see more info</p>
+                    </div>
+                    </div>
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 p-4">
+                        <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
+                        <div class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                            <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
+                            <p class="mb-4">This patient has been identified as at medium risk for developing sepsis.</p>
+                        </div>
+                        <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
+                    </div>
+                </div>
             </div>
+            
         </section>
     </div>
     <footer class="bg-gray-800 text-white text-center p-4">
         DSC 180B
     </footer>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
 </body>
 </html>
