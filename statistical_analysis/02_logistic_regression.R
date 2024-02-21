@@ -30,18 +30,29 @@ run_comorbidity_analysis <- function(comorbidity, data) {
   return(results)
 }
 
-
-
 # ---------------------------------------------------------------------------------------------------
 
 # Example of using the function
 
-results_congestive_heart_failure <- run_comorbidity_analysis("congestive_heart_failure", subgroup_list)
-results_congestive_heart_failure
+# results_congestive_heart_failure <- run_comorbidity_analysis("congestive_heart_failure", subgroup_list)
+# results_congestive_heart_failure
 
-results_depression <- run_comorbidity_analysis("depression", combined_data)
-results_depression
+# ---------------------------------------------------------------------------------------------------
 
+# Create a new function for the plumber API
+# Plumber annotation
+#* @post /analyze
+function(comorbidity) {
+  # Assuming `subgroup_list` is available globally or you load it here
+  
+  # Call your existing function
+  results <- run_comorbidity_analysis(comorbidity, combined_data)
+  
+  return(results)
+}
+
+pr <- plumb("02_logistic_regression.R")  # Path to this API file
+pr$run(port=8000)
 
 
 
