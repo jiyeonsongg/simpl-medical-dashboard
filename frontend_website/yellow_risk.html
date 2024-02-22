@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard with Visualizations</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen m-0 font-sans">
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
+        <a href="index.html">
+            <img src="images/logo.png" alt="Logo" class="h-12"> <!-- Adjust the path and class as needed -->
+        </a>
+    </header>
+    <div id="dashboard" class="flex flex-1 relative">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
+            <nav>
+                <ul>
+                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
+                    <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
+                    <!-- More links for other visualizations -->
+                </ul>
+            </nav>
+        </aside>
+        <section id="main-content" class="flex-1 p-4 flex flex-col justify-center items-center w-full">
+            <!-- Title -->
+            <div class="flex h-25 w-full">
+                <h2 class="text-4xl font-semibold w-full text-center">Moderate Risk</h1>
+            </div>
+            <!-- Buttons -->
+            <div class="grid grid-cols gap-4 w-full h-full">
+                <div class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    <!-- Grid for Patient IDs -->
+                    <div class="grid grid-cols-3 gap-2 mt-2 mb-4">
+                        <!-- Boxes for each Patient ID -->
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12345</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12346</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12347</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12348</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12349</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12350</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12351</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12352</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12353</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12354</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12355</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12356</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12357</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12358</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12359</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12360</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12361</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12362</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12363</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12364</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12365</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12366</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12367</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12368</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12369</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12370</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12371</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12372</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12373</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12374</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12375</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12376</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12377</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12378</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12379</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12380</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12381</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12382</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12383</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12384</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12385</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12386</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12387</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12388</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12389</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12390</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12391</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12392</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12393</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12394</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12395</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12396</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12397</a>
+                        <a href="sepsis_dash.html" class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-2 px-4 rounded-lg transition-colors">Patient ID: 12398</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="bg-gray-800 text-white text-center p-4">
+        DSC 180B
+    </footer>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
+</body>
+</html>
