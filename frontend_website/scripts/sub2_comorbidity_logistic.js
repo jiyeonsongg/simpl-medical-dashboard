@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function getDiseaseDescription(disease) {
         var descriptions = {
-            congestive_heart_failure: "In this specific group, several diseases have been found to be highly correlated with congestive heart failure, each showing a statistically significant relationship (p < 0.01). These diseases include cardiac arrhythmias, valvular disease, disorders related to pulmonary circulation, hypertension, chronic pulmonary conditions, complicated forms of diabetes, renal failure, coagulopathy, obesity, and fluid and electrolyte imbalances. The significant correlation suggests that these conditions may share common risk factors with congestive heart failure or could contribute to its development or severity.",
+            congestive_heart_failure: "Description for Congestive Heart Failure",
             cardiac_arrhythmias: "Description for Cardiac Arrhythmias.",
             valvular_disease: "Description for Valvular Disease.",
             pulmonary_circulation: "Description for Pulmonary Circulation Disorders.",
