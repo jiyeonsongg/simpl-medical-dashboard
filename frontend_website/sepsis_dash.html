@@ -8,14 +8,16 @@
 <body class="flex flex-col min-h-screen m-0 font-sans">
     <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
         <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
-        <h1>Comorbidity Compass</h1>
+        <a href="index.html">
+            <img src="assets/logo.png" alt="Logo" class="h-12"> <!-- Adjust the path and class as needed -->
+        </a>
     </header>
     <div id="dashboard" class="flex flex-1 relative">
         <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
                 <ul>
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
-                    <li><a href="sepsis.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
                     <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
                     <!-- More links for other visualizations -->
                 </ul>
@@ -25,7 +27,20 @@
             <div class="grid grid-cols-2 gap-4 h-full w-full ">
                 <!-- Left side -->
                 <div class="col-span-1 flex flex-col gap-4">
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 h-1/3">Top Section (1/3 of the left side)</div>
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 h-1/3"><h2 class="text-xl font-semibold mb-6 text-center">Patient Information</h2>
+                        <div class="grid grid-cols-4 gap-6 mb-6">
+                            <div class="col-span-2"><strong>ID:</strong> 123456</div>
+                            <div><strong>Age:</strong> 45</div>
+                            <div><strong>Gender:</strong> Male</div>
+                            <div class="col-span-2"><strong>Admission Type:</strong> Elective</div>
+                            <div class="col-span-4">
+                                <h3 class="text-lg font-semibold mb-4 text-center">Most Recent J.I.T Information</h3>
+                            </div>
+                            <div><strong>Heart Rate:</strong> 75 bpm</div>
+                            <div><strong>Temperature:</strong> 98.6°F</div>
+                            <div><strong>Respiratory Rate:</strong> 18 bpm</div>
+                            <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
+                        </div></div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 h-2/3">Bottom Section (2/3 of the left side)</div>
                 </div>
             
@@ -78,8 +93,8 @@
                         </select>
                     </div>
                     <div id="info-container" class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h1 id="subgroup-name" class="text-3xl text-center font-bold">Found subgroups:</h1>
-                        <p id="subgroup-info" class="mt-4">Click on a subgroup to see more info</p>
+                        <h1 id="disease-name" class="text-3xl text-center font-bold">Found subgroups:</h1>
+                        <p id="disease-info" class="mt-4">Click on a subgroup to see more info</p>
                     </div>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 p-4">
@@ -105,6 +120,18 @@
             sidebar.classList.toggle('-translate-x-full');
             sidebar.classList.toggle('translate-x-0');
         });
+
+        // Function to update the text in the right half
+        function updateText(subgroupName) {
+            const infoContainer = document.getElementById('subgroup-info');
+            infoContainer.textContent = `You clicked on ${subgroupName}`;
+        }
+
+        // Function to update the header in the right half
+        function updateTitle(subgroupName) {
+            const infoContainer = document.getElementById('subgroup-name');
+            infoContainer.textContent = `${subgroupName}:`
+        }
     </script>
 </body>
 </html>
