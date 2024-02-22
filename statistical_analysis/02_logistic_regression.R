@@ -50,6 +50,7 @@ results_congestive_heart_failure <- run_comorbidity_analysis("congestive_heart_f
 results_congestive_heart_failure
 
 results_depression <- run_comorbidity_analysis("depression", combined_data)
+run_comorbidity_analysis("cardiac_arrhythmias", combined_data[1])
 
 
 
