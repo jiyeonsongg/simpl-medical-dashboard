@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard with Visualizations</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen m-0 font-sans">
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
+        <a href="index.html">
+            <img src="images/logo.png" alt="Logo" class="h-12">
+        </a>
+    </header>
+    <div id="dashboard" class="flex-1 relative p-4">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
+            <nav>
+                <h1 class="">Data Science Capstone Report</h1>
+                <ul>
+                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
+                    <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
+                    <li><a href="report.html" class="text-blue-600 hover:text-blue-700">Report</a></li>
+                    <!-- More links for other visualizations -->
+                </ul>
+            </nav>
+        </aside>
+        <section id="main-content" class="flex-1 p-4 flex flex-col">
+            <h1 class="text-5xl text-center font-bold">Sepsis Risk Medical Dashboard: </h1>
+            <h2 class="text-5xl text-center font">Utilizing Comorbidity Subgroups For Enhanced ICU Patient Care</h1>
+            <div id="info-container-left-1" class="bg-white p-4 h-50 border border-gray-300 rounded-lg mb-4">
+                <br>
+                <p> <h1 class="text-3xl text-left font-bold">Abstract</h1> <br>
+                    The lack of incorporation of medical history in current sepsis 
+                    risk prediction tools leaves a gap in the reality of sepsis 
+                    development and the ability of a machine learning model to 
+                    mimic this process. Inspired by the finding of Zador et al. (2019), 
+                    which challenges the current diagnostic system by emphasizing the 
+                    significance of interplay between pre-existing diseases in a 
+                    patient’s sepsis development, we decided to create a comprehensive 
+                    sepsis risk assessment dashboard that unlike other prediction tools 
+                    capitalizes on our new insights relating to comorbidity. Our dashboard 
+                    aims to categorize ICU patients into risk categories based on comorbidity 
+                    specific vitals and convey this categorization with relevant JIT information 
+                    to facilitate sepsis risk assessment for medical professionals.
+                    </p>
+            </div>
+            <div id="info-container-left-2" class="bg-white p-4 h-65 border border-gray-300 rounded-lg mb-4">
+                <br>
+                <p> <h1 class="text-1xl text-left font-bold">Introduction</h1> <br>
+                Prevalent problems in healthcare like sepsis and a progressively aging 
+                population necessitates a data-driven approach for these increasingly complex problems. 
+                Contemporary medical diagnoses utilize risk assessment scoring systems, such as the 
+                Sepsis-related Organ Failure Score (SOFA) and the Oxford Acute Severity Illness Score (OASIS), 
+                which often only focus on measured physiological data at admission. As the population ages and 
+                the prevalence of multimorbidity (the combination of multiple chronic illnesses at once) increases, 
+                it is becoming more evident that current medical practices need to evolve. Current medical education,
+                treatment protocols, and clinical trial designs continue to maintain a singular disease focus, which 
+                may contribute to the mortality rate in clinical trials and sepsis patients. The authors of the paper 
+                we are replicating use grouping methods like latent class analysis to find subgroups of patients in the
+                critical care dataset, arguing that a more nuanced understanding of multimorbidity could shift the thinking 
+                in healthcare from a single-disease focus to a multimorbidity focused healthcare model.
+                    </p>
+            </div>
+            <div id="info-container-right-1" class="bg-white p-4 h-50 border border-gray-300 rounded-lg mb-4">
+                <br>
+                <p> <h1 class="text-1xl text-left font-bold">Literature Review and Discussion of Previous Work</h1> <br>
+                    For the Quarter 1 project, we replicated the research paper, Multimorbidity states associated with 
+                    higher mortality rates in organ dysfunction and sepsis: a data driven analysis in critical care 
+                    Zador et al. 2019. To familiarize ourselves with the medical domain, especially multimorbidity 
+                    related to sepsis and organ dysfunction. To understand the definition of some medical terminologies, 
+                    we took a look at some reference papers that are listed at the end of the research paper. The role of 
+                    infection and comorbidity: Factors that influence disparities in sepsis helped us to understand the 
+                    effects of sepsis and causes of morbidity. The paper was a great starting block in order to understand 
+                    how different demographics and more importantly chronic medical conditions may affect the reaction time 
+                    of sepsis as well as how the disease might spread and how high the mortality rate may be.
+                    Researchers on the Zador et al. paper mention their motivation to create this study being the lack of studies 
+                    that intertwine with sepsis and underlying diseases, despite the fact that epidemiological studies have found 
+                    evidence of the two being associated. They mention that most risk assessment scores of mortality primarily focus 
+                    on inpatient physiological data recorded after a patient is admitted, i.e. vital signs, respiratory monitoring, gas 
+                    blood data, glucose monitoring, etc. that can only be documented after the patient is admitted to the ICU. However, 
+                    the researchers found that more recent epidemiological studies state a significant effect from pre-existing conditions 
+                    on mortality due to sepsis. Therefore, the risk assessment scores created using only inpatient physiological data are 
+                    limited in their scope of predicting mortality in sepsis. 
+                    </p>
+            </div>
+            <h1 class="text-3xl text-left font-bold">Methods</h1> <br>
+            <div id="info-container-right-2" class="bg-white p-4 h-65 border border-gray-300 rounded-lg mb-4">
+                <p> 
+                    <h1 class="text-1xl text-left font-bold">Data Processing/Cleaning and EDA</h1> <br>
+                    We began our Exploratory Data Analysis with a systemic extraction of patient vital sign data 
+                    from the MIMIC III database where each of the vitals signs was distributed across 17 distinct 
+                    “chartevents” tables. After extracting all the available vitals for temperature, respiratory rate, 
+                    heart rate, blood pressure, white blood cell count, and oxygen saturation from the chartevents tables
+                    we assess the viability of the data. After cleaning and assessing outliers, we conducted EDA to explore
+                    the distributions of demographics and vitals amongst all patients vs each subgroup. Visual analyses display 
+                    that patients with shared comorbidity profiles do differ from the overall data, indicating that splitting 
+                    the vitals data by subgroup is bound to affect the model. 
+                     </p> <br>
+                <p> 
+                    <h1 class="text-1xl text-left font-bold">Statistical Analysis</h1> <br>
+                    Starting with selecting cohorts, similar to the Quarter 1 project, we focused on patients aged 16 years or older, 
+                    but expanded our dataset to include patients with readmissions. We utilized Latent Class Analysis (LCA) to identify 
+                    an optimal number of distinct subgroups within the patient population based on their morbidity profiles. To determine 
+                    the optimal number of subgroups, we conducted LCA for a range of classes from 5 to 12, and selected the model with the 
+                    lowest Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) values. This led to the identification 
+                    of 7 as the optimal number of subgroups, where both AIC and BIC decreased most significantly, indicating the best fit with 
+                    the data while maintaining the model’s simplicity. 
+                    After the subgroup analysis, we performed logistic regression analyses to explore characteristics and relationships between 
+                    morbidities within each group. This allowed us to uncover significant associations, such as the high correlation between congestive 
+                    heart failure and specific comorbidities within certain subgroups.
+                    For further analysis of the differences between identified subgroups, we conducted the Kruskal-Wallis test, comparing the 
+                    median Sequential Organ Failure Assessment (SOFA) scores across the subgroups. The SOFA score was chosen as our variable of 
+                    interest due to its relevance in assessing the extent of a patient’s organ failure. The results of our Kruskal-Wallis test show 
+                    the significant differences between the subgroups, leading us to reject the null hypothesis (p-value = 0 < 0.05) that the median 
+                    severity scores across subgroups are equal. 
+
+                    Finally, we performed a post-hoc analysis to conduct pairwise comparisons between the subgroups. This involves calculating the standardized 
+                    test statistics using the Z test for each comparison and adjusting p-values for multiple comparisons to control family-wise error rates. 
+                    These adjusted p-values statistically significant differences between media SOFA scores of the subgroups, which further validates the distinct
+                     nature of the subgroups identified in our analysis.
+                     </p>
+                     <br>
+                     <p> 
+                        <h1 class="text-1xl text-left font-bold">Model</h1> <br>
+                        We decided to create two machine learning algorithms to help what the sepsis risk of a patient 
+                        is based on what their vitals are, 
+                        their subgroup, and how long they’ve been in the hospital. 
+                        The first model is meant to properly place a patient in a subgroup based on their comorbidity composition. 
+                        This means that based on their elixhauser scores (which diseases they have) we place them in a specific subgroup. The reasoning 
+                        behind this is that disease prevalence of a patient is very correlated to their sepsis risk. When talking to medical professionals,
+                        we noticed this is something they do not take into account. When analyzing whether they are sepsis prone doctors usually just look at 
+                        their vitals and whether they have recently been in surgery. So our first machine learning model takes the subgroups that Latent Class Analysis
+                        places patients in and uses that composition of their morbidities to predict what subgroup they are in. This machine learning model gave us a 92% accuracy rate. 
+
+                        The second machine learning model is what helped us predict whether a patient would be low, moderate, or high sepsis risk. In order to do this we had to feature 
+                        engineer and create variables that are good features to predict whether a patient has sepsis. The variables we use are hours in hospital, temperature, blood pressure, 
+                        heart rate, and subgroup. We split up the sofa score, which is a method to predict sepsis risk 10 being high and 1 being low, into three different bins and predicted accordingly. 
+                        The basic random forest model returned a 66% accuracy. 
+
+                         </p>
+                         <br>
+                     <p> 
+                        <h1 class="text-1xl text-left font-bold">Dashboard</h1> <br>
+                        We developed an interactive web dashboard to present our findings from our analyses. This web application was constructed using HTML, TailwindCSS, D3, and Javascript. 
+                        This dashboard aims to present subgroup-based sepsis risk information in an easily digestible manner for all levels of medical staff. Currently, the web page consists of 
+                        three pages: Subgroups, Sepsis Risk, and About, with an Index landing page.
+                        Upon entering the webpage, the user will be presented with three colored buttons that represent the three categories we decided on categorizing patients into: green, yellow, and red. 
+                        Clicking one of the buttons reveals a list of patients in the MIMIC III dataset that were grouped into those categories by our machine learning methods. Clicking on one of those revealed 
+                        patients takes the user to the dashboard that displays specific information 
+
+                         </p>
+            </div>
+        </section>
+    </div>
+    <footer class="bg-gray-800 text-white text-center p-4">
+        DSC 180B
+    </footer>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
+</body>
+</html>
