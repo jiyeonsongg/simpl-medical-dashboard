@@ -28,21 +28,34 @@
             <div class="grid grid-cols-2 gap-4 h-full w-full ">
                 <!-- Left side -->
                 <div class="col-span-1 flex flex-col gap-4">
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 h-1/3"><h2 class="text-xl font-semibold mb-6 text-center">Patient Information</h2>
-                        <div class="grid grid-cols-2 gap-6 mb-6">
-                            <div><strong>ID:</strong> 123456</div>
-                            <div><strong>Age:</strong> 45</div>
-                            <div><strong>Gender:</strong> Male</div>
-                            <div><strong>Admission Type:</strong> Elective</div>
-                            <div class="col-span-4">
-                                <h3 class="text-lg font-semibold mb-4 text-center">Most Recent Just In Time Information</h3>
+                    <div class="flex justify-center items-center h-1/3">
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 w-1/2">
+                            <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div><strong>ID:</strong> 123456</div>
+                                <div><strong>Age:</strong> 45</div>
+                                <div><strong>Gender:</strong> Male</div>
+                                <div><strong>Admission Type:</strong> Elective</div>
                             </div>
-                            <div><strong>Heart Rate:</strong> 75 bpm</div>
-                            <div><strong>Temperature:</strong> 98.6°F</div>
-                            <div><strong>Respiratory Rate:</strong> 18 bpm</div>
-                            <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
+                            <h3 class="text-md font-semibold mb-2 text-center">Most Recent J.I.T Information</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><strong>Heart Rate:</strong> 75 bpm</div>
+                                <div><strong>Temperature:</strong> 98.6°F</div>
+                                <div><strong>Respiratory Rate:</strong> 18 bpm</div>
+                                <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
+                            </div>
                         </div>
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 w-1/2">
+                            <h2 class="text-lg font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
+                            <ul class="list-disc pl-5">
+                                <li class="mb-2">Congestive Heart Failure</li>
+                                <li class="mb-2">Valvular Disease</li>
+                                <li class="mb-2">Renal Failure</li>
+                                <li class="mb-2">Complicated Diabetes</li>
+                            </ul>
+                        </div>                        
                     </div>
+                    
                     <div class="m-1 h-2/3 flex flex-wrap">
                         <div class="bg-white p-4 border border-gray-300 rounded-lg w-1/2 h-1/2 p-2">Quadrant 1</div>
                         <div class="bg-white p-4 border border-gray-300 rounded-lg w-1/2 h-1/2 p-2">Quadrant 2</div>
