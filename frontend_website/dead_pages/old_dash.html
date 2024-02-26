@@ -25,50 +25,48 @@
             </nav>
         </aside>
         <section id="main-content" class="flex-1 p-4 flex flex-col justify-center items-center">
-            <div class="grid grid-cols-2 w-full h-full gap-4">
+            <div class="grid grid-cols-2 gap-4 h-full w-full ">
                 <!-- Left side -->
-                <div class="grid grid-cols-2 grid-rows-3 gap-4">
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div><strong>ID:</strong> 123456</div>
-                            <div><strong>Age:</strong> 45</div>
-                            <div><strong>Gender:</strong> Male</div>
-                            <div><strong>Admission Type:</strong> Elective</div>
+                <div class="col-span-1 flex flex-col gap-4">
+                    <div class="flex justify-center items-center h-1/3">
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 w-1/2 h-full">
+                            <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div id="subject_id_display"></div> <!-- Subject ID -->
+                                <div><strong>Age:</strong> 45</div>
+                                <div><strong>Gender:</strong> Male</div>
+                                <div><strong>Admission Type:</strong> Elective</div>
+                            </div>
+                            <h3 class="text-md font-semibold mb-2 text-center">Most Recent J.I.T Information</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><strong>Heart Rate:</strong> 75 bpm</div>
+                                <div><strong>Temperature:</strong> 98.6°F</div>
+                                <div><strong>Respiratory Rate:</strong> 18 bpm</div>
+                                <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
+                            </div>
                         </div>
-                        <h3 class="text-md font-semibold mb-2 text-center">Most Recent J.I.T Information</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div><strong>Heart Rate:</strong> 75 bpm</div>
-                            <div><strong>Temperature:</strong> 98.6°F</div>
-                            <div><strong>Respiratory Rate:</strong> 18 bpm</div>
-                            <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
-                        </div>
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 w-1/2 h-full">
+                            <h2 class="text-lg font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
+                            <ul class="list-disc pl-5">
+                                <li class="mb-2">Congestive Heart Failure</li>
+                                <li class="mb-2">Valvular Disease</li>
+                                <li class="mb-2">Renal Failure</li>
+                                <li class="mb-2">Complicated Diabetes</li>
+                            </ul>
+                        </div>                        
                     </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h2 class="text-lg font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
-                        <ul class="list-disc pl-5">
-                            <li class="mb-2">Congestive Heart Failure</li>
-                            <li class="mb-2">Valvular Disease</li>
-                            <li class="mb-2">Renal Failure</li>
-                            <li class="mb-2">Complicated Diabetes</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 1
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 2
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 3
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 4
+                    
+                    <div class="m-1 h-2/3 flex flex-wrap">
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg w-1/2 h-1/2 p-2">Quadrant 1</div>
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg w-1/2 h-1/2 p-2">Quadrant 2</div>
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg w-1/2 h-1/2 p-2">Quadrant 3</div>
+                        <div class="bg-white p-4 border border-gray-300 rounded-lg w-1/2 h-1/2 p-2">Quadrant 4</div>
                     </div>
                 </div>
+            
                 <!-- Right side -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
+                <div class="col-span-1 grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 p-4">
                         <h2 class="text-lg font-semibold mb-4 text-center">Patient Group Analysis</h2>
                         <div class="text-center p-4 my-4 bg-blue-100 rounded-lg">
                             <h3 class="text-xl font-bold">Cardiopulmonary Group</h3>
@@ -118,20 +116,21 @@
                             Select a disease to see its description.
                         </div>
                         <!-- JavaScript file for R function (02_logistic_regression.R) -->
-                        <script src="scripts/sub1_comorbidity_logistic.js"></script> <!-- Link to your JavaScript file -->
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
+                        <script src="scripts/sub1_comorbidity_logistic.js"></script> <!-- CHANGE HERE DEPENDS ON THE PATIENT'S GROUP -->
+                        </div>
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 p-4">
                         <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
                         <div class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
                             <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
-                            <p class="mb-4">This patient has been identified as at medium risk for developing sepsis.</p>
+                            <p class="mb-4 text-gray-600">This patient has been identified as at medium risk for developing sepsis.</p>
                         </div>
-                        <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
+                        <p class="text-sm text-black-600"><span id="nextSteps"></span></p>
+                        <script src="scripts/flag_yellow.js"></script>
                     </div>
                 </div>
             </div>
+            
         </section>
-        
     </div>
     <footer class="bg-gray-800 text-white text-center p-4">
         DSC 180B
@@ -154,6 +153,29 @@
         function updateTitle(subgroupName) {
             const infoContainer = document.getElementById('subgroup-name');
             infoContainer.textContent = `${subgroupName}:`
+        }
+        // Function to parse URL parameters
+        function getQueryParam(param) {
+            var queryString = window.location.search.substring(1); // Get query string, excluding '?'
+            var queryParams = queryString.split('&'); // Split into key-value pairs
+            for (var i = 0; i < queryParams.length; i++) {
+                var pair = queryParams[i].split('='); // Split key-value pair
+                if (decodeURIComponent(pair[0]) == param) { // Check if the current key matches the parameter we want
+                    return decodeURIComponent(pair[1]); // Return the value
+                }
+            }
+            return null; // If the parameter isn't found, return null
+        }
+
+        // Extract userId from URL parameters
+        var userId = getQueryParam('subject_id');
+
+        // Select the p tag by its id and set its content to the userId
+        if (userId) {
+            // Here we're using innerHTML instead of textContent
+            document.getElementById('subject_id_display').innerHTML = `<strong>ID:</strong> ${userId}`;
+        } else {
+            document.getElementById('subject_id_display').innerHTML = `<strong>ID:</strong> 11111`;
         }
     </script>
 </body>
