@@ -46,65 +46,6 @@ run_comorbidity_analysis <- function(comorbidity, data) {
 
 # ---------------------------------------------------------------------------------------------------
 # Example of using the function
-results_congestive_heart_failure <- run_comorbidity_analysis("congestive_heart_failure", combined_data)
-results_congestive_heart_failure
-
-results_depression <- run_comorbidity_analysis("depression", combined_data)
-run_comorbidity_analysis("cardiac_arrhythmias", combined_data[1])
+run_comorbidity_analysis("congestive_heart_failure", combined_data)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Step 2: Prepare the Data
-# Ensure that the comorbidity variables are in the correct format
-comorbidity_columns <- c(
-  "congestive_heart_failure", "cardiac_arrhythmias", "valvular_disease",
-  "pulmonary_circulation", "peripheral_vascular", "hypertension",
-  "paralysis", "other_neurological", "chronic_pulmonary",
-  "diabetes_uncomplicated", "diabetes_complicated", "hypothyroidism",
-  "renal_failure", "liver_disease", "peptic_ulcer", "aids",
-  "lymphoma", "metastatic_cancer", "solid_tumor", "rheumatoid_arthritis",
-  "coagulopathy", "obesity", "weight_loss", "fluid_electrolyte",
-  "blood_loss_anemia", "deficiency_anemias", "alcohol_abuse",
-  "drug_abuse", "psychoses", "depression"
-)
-
-# Step 3: Run Logistic Regression
-# Example: Logistic regression for 'congestive_heart_failure' as the dependent variable
-model <- glm(congestive_heart_failure ~ age + admission_type_encoded + subgroup + 
-               cardiac_arrhythmias + valvular_disease + pulmonary_circulation + 
-               peripheral_vascular + hypertension + paralysis + other_neurological + 
-               chronic_pulmonary + diabetes_uncomplicated + diabetes_complicated + 
-               hypothyroidism + renal_failure + liver_disease + peptic_ulcer + aids + 
-               lymphoma + metastatic_cancer + solid_tumor + rheumatoid_arthritis + 
-               coagulopathy + obesity + weight_loss + fluid_electrolyte + 
-               blood_loss_anemia + deficiency_anemias + alcohol_abuse + 
-               drug_abuse + psychoses + depression, 
-             family = binomial(), data = combined_data)
-
-# Step 4: Analyze the Results
-summary(model)
