@@ -118,14 +118,15 @@
                         </div>
                         <!-- JavaScript file for R function (02_logistic_regression.R) -->
                         <script src="scripts/sub1_comorbidity_logistic.js"></script> <!-- CHANGE HERE DEPENDS ON THE PATIENT'S GROUP -->
-                    </div>
+                        </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg m-1 p-4">
                         <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
                         <div class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
                             <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
-                            <p class="mb-4">This patient has been identified as at medium risk for developing sepsis.</p>
+                            <p class="mb-4 text-gray-600">This patient has been identified as at medium risk for developing sepsis.</p>
                         </div>
-                        <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
+                        <p class="text-sm text-black-600"><span id="nextSteps"></span></p>
+                        <script src="scripts/flag_yellow.js"></script>
                     </div>
                 </div>
             </div>
