@@ -31,12 +31,12 @@
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
                         <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div><strong>ID:</strong> 123456</div>
+                            <div id="subject_id_display"></div> <!-- Subject ID -->
                             <div><strong>Age:</strong> 45</div>
                             <div><strong>Gender:</strong> Male</div>
                             <div><strong>Admission Type:</strong> Elective</div>
                         </div>
-                        <h3 class="text-md font-semibold mb-2 text-center">Most Recent J.I.T Information</h3>
+                        <h3 class="text-md font-semibold mb-2 text-center">Most Recent Just In Time Information</h3>
                         <div class="grid grid-cols-2 gap-4">
                             <div><strong>Heart Rate:</strong> 75 bpm</div>
                             <div><strong>Temperature:</strong> 98.6°F</div>
@@ -122,9 +122,7 @@
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
-                        <div class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
-                            <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
-                            <p class="mb-4">This patient has been identified as at medium risk for developing sepsis.</p>
+                        <div id="risk_banner">
                         </div>
                         <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
                     </div>
@@ -154,6 +152,57 @@
         function updateTitle(subgroupName) {
             const infoContainer = document.getElementById('subgroup-name');
             infoContainer.textContent = `${subgroupName}:`
+        }
+        // Function to parse URL parameters
+        function getQueryParam(param) {
+            var queryString = window.location.search.substring(1); // Get query string, excluding '?'
+            var queryParams = queryString.split('&'); // Split into key-value pairs
+            for (var i = 0; i < queryParams.length; i++) {
+                var pair = queryParams[i].split('='); // Split key-value pair
+                if (decodeURIComponent(pair[0]) == param) { // Check if the current key matches the parameter we want
+                    return decodeURIComponent(pair[1]); // Return the value
+                }
+            }
+            return null; // If the parameter isn't found, return null
+        }
+
+        // Extract userId from URL parameters
+        var userId = getQueryParam('subject_id');
+
+        // Extract color from URL parameters
+        var riskColor = getQueryParam('risk_color');
+
+        // Select the p tag by its id and set its content to the userId
+        if (userId) {
+            document.getElementById('subject_id_display').innerHTML = `<strong>ID:</strong> ${userId}`;
+        } else {
+            document.getElementById('subject_id_display').innerHTML = `<strong>ID:</strong> 0000`;
+        }
+
+        // Set the background color of the body based on the risk color
+        if (riskColor === 'green') {
+            document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-green-100 border-l-4 border-green-500 rounded-lg">
+                            <h3 class="text-xl font-bold text-green-600">Green Flag - Low Risk</h3>
+                            <p class="mb-4">This patient has been identified as at low risk for developing sepsis.</p>
+                        </div>`;
+        }
+        else if (riskColor === 'yellow') {
+            document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                            <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
+                            <p class="mb-4">This patient has been identified as at Medium risk for developing sepsis.</p>
+                        </div>`;
+        }
+        else if (riskColor === 'red') {
+            document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-red-100 border-l-4 border-red-500 rounded-lg">
+                            <h3 class="text-xl font-bold text-red-600">Red Flag - Severe Risk</h3>
+                            <p class="mb-4">This patient has been identified as at severe risk for developing sepsis.</p>
+                        </div>`;
+        }
+        else {
+            document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-blue-100 border-l-4 border-blue-500 rounded-lg">
+                            <h3 class="text-xl font-bold text-blue-600">No Flag Yet</h3>
+                            <p class="mb-4">This patient has yet to be identified at a risk level. Please come back soon.</p>
+                        </div>`;
         }
     </script>
 </body>
