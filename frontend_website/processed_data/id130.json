@@ -1,0 +1,10 @@
+{
+    "name": "John Doe",
+    "subject_id": 130,
+    "subgroup": 1,
+    "latest_blood_pressure": 119.0,
+    "latest_chart_time": "2119-11-03T04:00:00",
+    "latest_temp_F": 98.6,
+    "latest_heart_rate": 93.0,
+    "latest_respiratory_rate": 26.0
+}
