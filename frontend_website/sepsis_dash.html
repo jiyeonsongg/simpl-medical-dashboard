@@ -32,25 +32,23 @@
                         <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <div id="subject_id_display"></div> <!-- Subject ID -->
-                            <div><strong>Age:</strong> 45</div>
-                            <div><strong>Gender:</strong> Male</div>
-                            <div><strong>Admission Type:</strong> Elective</div>
+                            <div id="subject_name_display"></div> <!-- Subject Name -->
+                            <div><strong>Age:</strong> None</div>
+                            <div><strong>Gender:</strong> None</div>
+
                         </div>
-                        <h3 class="text-md font-semibold mb-2 text-center">Most Recent Just In Time Information</h3>
+                        <h2 id="jit_time" class="text-md font-semibold mb-2 text-center">Just In Time Information</h2>
                         <div class="grid grid-cols-2 gap-4">
-                            <div><strong>Heart Rate:</strong> 75 bpm</div>
-                            <div><strong>Temperature:</strong> 98.6°F</div>
-                            <div><strong>Respiratory Rate:</strong> 18 bpm</div>
-                            <div><strong>White Blood Cell Count:</strong> 7000 cells/μL</div>
+                            <div id="hr_display"></div>
+                            <div id="temp_display"></div>
+                            <div id="rr_display"></div>
+                            <div id="bp_display"></div>
                         </div>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
                         <ul class="list-disc pl-5">
-                            <li class="mb-2">Congestive Heart Failure</li>
-                            <li class="mb-2">Valvular Disease</li>
-                            <li class="mb-2">Renal Failure</li>
-                            <li class="mb-2">Complicated Diabetes</li>
+                            <li class="mb-2"></li>
                         </ul>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
@@ -71,7 +69,7 @@
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Patient Group Analysis</h2>
                         <div class="text-center p-4 my-4 bg-blue-100 rounded-lg">
-                            <h3 class="text-xl font-bold">Cardiopulmonary Group</h3>
+                            <h3 class="text-xl font-bold">Subgroup 1</h3>
                             <p class="text-green-600">Likelihood: <span class="font-bold">83%</span></p>
                         </div>
                         <p class="text-sm text-gray-600 italic">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
@@ -204,6 +202,47 @@
                             <p class="mb-4">This patient has yet to be identified at a risk level. Please come back soon.</p>
                         </div>`;
         }
+        function fetchAndDisplayData(fileName) {
+            fetch(`processed_data/id${fileName}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('subject_name_display').innerHTML = `<strong>Name:</strong> ${data.name}`;
+                    document.getElementById('jit_time').innerHTML = `Just In Time: ${data.latest_chart_time}`;
+                    document.getElementById('hr_display').innerHTML = `<strong>Heart Rate:</strong> ${data.latest_heart_rate} bpm`;
+                    document.getElementById('temp_display').innerHTML = `<strong>Temperature:</strong> ${data.latest_temp_F} F`;
+                    document.getElementById('rr_display').innerHTML = `<strong>Respiratory Rate:</strong> ${data.latest_respiratory_rate} bpm`;
+                    document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mm Hg`;
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+
+// Fetch and display the data if the parameter is provided
+if (userId) {
+    fetchAndDisplayData(userId);
+} else {
+    console.log('No data file specified.');
+}
+
+        // fetch('processed_data/id59.json') // Replace 'data.json' with the path to your JSON
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         document.getElementById('subject_name_display').innerHTML = `<strong>Name:</strong> ${data.name}`;
+        //         document.getElementById('jit_time').innerHTML = `Just In Time: ${data.latest_chart_time}`;
+        //         document.getElementById('hr_display').innerHTML = `<strong>Heart Rate:</strong> ${data.latest_heart_rate} bpm`;
+        //         document.getElementById('temp_display').innerHTML = `<strong>Temperature:</strong> ${data.latest_temp_F} F`;
+        //         document.getElementById('rr_display').innerHTML = `<strong>Respiratory Rate:</strong> ${data.latest_respiratory_rate} bpm`;
+        //         document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mm Hg`;
+
+        //     })
+        //     .catch(error => console.error('Error:', error));
     </script>
 </body>
 </html>
