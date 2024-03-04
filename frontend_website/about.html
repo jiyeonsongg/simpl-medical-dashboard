@@ -7,13 +7,13 @@
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
     <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
-        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
         <a href="index.html">
             <img src="images/logo.png" alt="Logo" class="h-12"> <!-- Adjust the path and class as needed -->
         </a>
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
     </header>
     <div id="dashboard" class="flex flex-1 relative">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
                 <ul>
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
@@ -24,30 +24,28 @@
                 </ul>
             </nav>
         </aside>
-        <section id="main-content" class="flex-1 p-4 flex">
-            <!-- Left half -->
-            <div class="w-1/2 p-2 flex flex-col">
-                <div id="info-container-left-1" class="bg-white p-4 h-50 border border-gray-300 rounded-lg mb-4">
-                    <h1 class="text-3xl text-center font-bold">Data Science Background</h1>
-                    <br>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-                <div id="info-container-left-2" class="bg-white p-4 h-65 border border-gray-300 rounded-lg mb-4">
-                    <p>Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet. Diam sit amet nisl suscipit adipiscing bibendum. Nec dui nunc mattis enim ut tellus elementum. Cras adipiscing enim eu turpis egestas pretium aenean. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit. Aliquam malesuada bibendum arcu vitae. Etiam tempor orci eu lobortis elementum nibh tellus molestie. Euismod quis viverra nibh cras pulvinar mattis nunc. Cras tincidunt lobortis feugiat vivamus. Tincidunt ornare massa eget egestas purus. Diam maecenas sed enim ut sem. Ut tortor pretium viverra suspendisse potenti nullam ac tortor. Ut eu sem integer vitae justo eget magna fermentum. Posuere ac ut consequat semper viverra nam libero. Varius vel pharetra vel turpis nunc eget. Ornare suspendisse sed nisi lacus sed viverra tellus. Consectetur lorem donec massa sapien faucibus et. Nec feugiat nisl pretium fusce. Enim facilisis gravida neque convallis a.</p>
-                </div>
+        <section id="main-content" class="flex-1 p-8 grid grid-cols-2 grid-rows-2 gap-8">
+            <div class="bg-blue-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato1.JPG" alt="Person 1" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Oakkar Aung</h3>
+                <p class="text-lg">Email: oaaung@ucsd.edu<br>Oakkar is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
             </div>
-            <!-- Right half -->
-            <div class="w-1/2 p-2 flex flex-col">
-                <div id="info-container-right-1" class="bg-white p-4 h-50 border border-gray-300 rounded-lg mb-4">
-                    <h1 class="text-3xl text-center font-bold">Medical Background</h1>
-                    <br>
-                    <p>In eu mi bibendum neque egestas congue quisque egestas diam. Elementum facilisis leo vel fringilla. Mus mauris vitae ultricies leo integer malesuada nunc vel risus. Elementum tempus egestas sed sed risus pretium. Ut tortor pretium viverra suspendisse potenti nullam ac tortor. Dolor magna eget est lorem ipsum. Ultricies leo integer malesuada nunc vel risus commodo viverra. Mauris ultrices eros in cursus turpis massa. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem.</p>
-                </div>
-                <div id="info-container-right-2" class="bg-white p-4 h-65 border border-gray-300 rounded-lg mb-4">
-                    <p>Lorem mollis aliquam ut porttitor. Urna et pharetra pharetra massa massa ultricies mi quis. At urna condimentum mattis pellentesque id. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Quam pellentesque nec nam aliquam. Vestibulum rhoncus est pellentesque elit ullamcorper dignissim. Eu feugiat pretium nibh ipsum consequat nisl vel pretium. Nibh venenatis cras sed felis eget velit aliquet sagittis id. Elementum eu facilisis sed odio morbi quis. In iaculis nunc sed augue lacus viverra vitae. Id cursus metus aliquam eleifend mi in nulla posuere. Adipiscing tristique risus nec feugiat in. Dictum fusce ut placerat orci nulla. Arcu bibendum at varius vel pharetra vel turpis nunc eget. In mollis nunc sed id semper. Arcu bibendum at varius vel pharetra vel turpis. Aliquam malesuada bibendum arcu vitae elementum.</p>
-                </div>
+            <div class="bg-green-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato2.JPG" alt="Person 2" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Rihana Mohamed</h3>
+                <p class="text-lg">Email: rmohamed@ucsd.edu<br>Rihana is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
             </div>
-        </section>
+            <div class="bg-yellow-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato3.JPG" alt="Person 3" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Vibha Sastry</h3>
+                <p class="text-lg">Email: vsastry@ucsd.edu<br>Vibha is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
+            </div>
+            <div class="bg-red-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato4.JPG" alt="Person 4" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Jiyeon Song</h3>
+                <p class="text-lg">Email: jis036@ucsd.edu<br>Jiyeon is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
+            </div>
+        </section>               
     </div>
     <footer class="bg-gray-800 text-white text-center p-4">
         DSC 180B
@@ -56,7 +54,7 @@
         document.getElementById('toggleSidebar').addEventListener('click', function() {
             var sidebar = document.getElementById('sidebar');
             // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
-            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-full');
             sidebar.classList.toggle('translate-x-0');
         });
     </script>

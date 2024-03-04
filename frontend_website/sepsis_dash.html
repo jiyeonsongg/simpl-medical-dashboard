@@ -7,13 +7,13 @@
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
     <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
-        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
         <a href="index.html">
             <img src="images/logo.png" alt="Logo" class="h-12"> <!-- Adjust the path and class as needed -->
         </a>
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
     </header>
     <div id="dashboard" class="flex flex-1 relative">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-10">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-10">
             <nav>
                 <ul>
                     <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
@@ -35,7 +35,6 @@
                             <div id="subject_name_display"></div> <!-- Subject Name -->
                             <div><strong>Age:</strong> None</div>
                             <div><strong>Gender:</strong> None</div>
-
                         </div>
                         <h2 id="jit_time" class="text-md font-semibold mb-2 text-center">Just In Time Information</h2>
                         <div class="grid grid-cols-2 gap-4">
@@ -51,19 +50,16 @@
                             <li class="mb-2"></li>
                         </ul>
                     </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 1
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 2
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 3
-                    </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        Quadrant 4
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg col-span-2 row-span-2">
+                        <select id="visualSelector">
+                            <option value="visual1">Visual 1 - Circle</option>
+                            <option value="visual2">Visual 2 - Rectangle</option>
+                            <!-- Add more options for additional visuals -->
+                        </select>
+                        <div id="d3VisualContainer"></div> <!-- Container for Visuals -->
                     </div>
                 </div>
+                
                 <!-- Right side -->
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
@@ -135,8 +131,8 @@
     <script>
         document.getElementById('toggleSidebar').addEventListener('click', function() {
             var sidebar = document.getElementById('sidebar');
-            // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
-            sidebar.classList.toggle('-translate-x-full');
+            // Toggle between translate-x-full and translate-x-0 to show/hide the sidebar
+            sidebar.classList.toggle('translate-x-full');
             sidebar.classList.toggle('translate-x-0');
         });
 
@@ -224,25 +220,62 @@
         }
 
 
-// Fetch and display the data if the parameter is provided
-if (userId) {
-    fetchAndDisplayData(userId);
-} else {
-    console.log('No data file specified.');
-}
+        // Fetch and display the data if the parameter is provided
+        if (userId) {
+            fetchAndDisplayData(userId);
+        } else {
+            console.log('No data file specified.');
+        }
 
-        // fetch('processed_data/id59.json') // Replace 'data.json' with the path to your JSON
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         document.getElementById('subject_name_display').innerHTML = `<strong>Name:</strong> ${data.name}`;
-        //         document.getElementById('jit_time').innerHTML = `Just In Time: ${data.latest_chart_time}`;
-        //         document.getElementById('hr_display').innerHTML = `<strong>Heart Rate:</strong> ${data.latest_heart_rate} bpm`;
-        //         document.getElementById('temp_display').innerHTML = `<strong>Temperature:</strong> ${data.latest_temp_F} F`;
-        //         document.getElementById('rr_display').innerHTML = `<strong>Respiratory Rate:</strong> ${data.latest_respiratory_rate} bpm`;
-        //         document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mm Hg`;
+        // Function to draw Visual 1
+        function drawVisual1() {
+            const svg = d3.select('#d3VisualContainer').append('svg')
+                .attr('width', 200)
+                .attr('height', 200);
 
-        //     })
-        //     .catch(error => console.error('Error:', error));
+            svg.append('circle')
+                .attr('cx', 100)
+                .attr('cy', 100)
+                .attr('r', 50)
+                .attr('fill', 'red');
+        }
+
+        // Function to draw Visual 2
+        function drawVisual2() {
+            const svg = d3.select('#d3VisualContainer').append('svg')
+                .attr('width', 200)
+                .attr('height', 200);
+
+            svg.append('rect')
+                .attr('x', 50)
+                .attr('y', 50)
+                .attr('width', 100)
+                .attr('height', 100)
+                .attr('fill', 'blue');
+        }
+
+        // Function to update the visual based on the dropdown selection
+        function updateVisual(selectedVisual) {
+            // Clear the previous visual
+            d3.select('#d3VisualContainer').selectAll('*').remove();
+
+            // Draw the selected visual
+            if (selectedVisual === 'visual1') {
+                drawVisual1();
+            } else if (selectedVisual === 'visual2') {
+                drawVisual2();
+            }
+            // Add more conditions for additional visuals
+        }
+
+        // Event listener for the dropdown
+        document.getElementById('visualSelector').addEventListener('change', function() {
+            updateVisual(this.value);
+        });
+
+        // Initial visual setup
+        updateVisual('visual1'); // Default to showing the first visual
+
     </script>
 </body>
 </html>
