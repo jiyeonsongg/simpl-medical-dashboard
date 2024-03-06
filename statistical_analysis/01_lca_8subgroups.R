@@ -77,7 +77,36 @@ lca_formula <- cbind(rounded_age, admission_type_encoded, congestive_heart_failu
                      psychoses,
                      depression) ~1
 
-# lca_out <- poLCA(lca_formula, data=final_table, nclass=8, graph=FALSE)
+lca_out <- poLCA(lca_formula, data=final_table, nclass=7, graph=FALSE)
+
+# Assuming lca_out is your fitted LCA model with the optimal number of classes
+# Calculate the maximum posterior probability for each patient
+final_table$max_post_prob <- apply(lca_out$posterior, 1, max)
+
+# Calculate the second highest probability to assess ambiguity
+second_max_post_prob <- apply(lca_out$posterior, 1, function(x) sort(x, decreasing = TRUE)[2])
+final_table$second_max_post_prob <- second_max_post_prob
+
+# Calculate the difference between the highest and second highest probabilities
+final_table$prob_diff <- final_table$max_post_prob - final_table$second_max_post_prob
+
+# You can decide on a threshold for what constitutes 'certain' classification
+# For example, if you want the max probability to be at least 0.7 to consider a classification certain
+final_table$certainty_classification <- ifelse(final_table$max_post_prob >= 0.7, "Certain", "Uncertain")
+
+# Review the distribution of the maximum posterior probabilities
+summary(final_table$max_post_prob)
+hist(final_table$max_post_prob, main = "Distribution of Maximum Posterior Probabilities", xlab = "Probability")
+
+# Review the distribution of the differences to assess how distinct the classifications are
+hist(final_table$prob_diff, main = "Distribution of Probability Differences", xlab = "Probability Difference")
+
+# You might want to look at cases with high ambiguity specifically
+ambiguous_cases <- final_table[final_table$prob_diff < 0.2, ]  # Adjust the threshold as needed
+
+# Print or save the results for review
+print(summary(final_table$certainty_classification))
+# write.csv(ambiguous_cases, "ambiguous_cases.csv", row.names = FALSE)
 
 
 # ---------------------------------------------------------------------
