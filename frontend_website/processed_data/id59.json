@@ -14,5 +14,8 @@
         "hypothyroidism",
         "renal_failure",
         "depression"
-    ]
+    ],
+    "age": 87,
+    "spo2": 97,
+    "sofa": 4
 }

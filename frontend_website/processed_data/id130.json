@@ -10,5 +10,8 @@
     "elixhauser": [
         "congestive_heart_failure",
         "diabetes_complicated"
-    ]
+    ],
+    "age": 61,
+    "spo2": 97,
+    "sofa": 3
 }

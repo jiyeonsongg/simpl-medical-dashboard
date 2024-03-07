@@ -31,18 +31,20 @@
                 <div class="grid grid-cols-2 grid-rows-3 gap-4">
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
-                        <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-blue-100 grid rounded-lg grid-cols-2 gap-4 mb-4 p-4">
                             <div id="subject_id_display"></div> <!-- Subject ID -->
-                            <div id="subject_name_display"></div> <!-- Subject Name -->
-                            <div><strong>Age:</strong> None</div>
-                            <div><strong>Gender:</strong> None</div>
+                            <!-- <div id="subject_name_display"></div> Subject Name -->
+                            <div id="subject_age_display"></div> <!-- Subject Age -->
+                            <!-- <div><strong>Gender:</strong> None</div> -->
                         </div>
-                        <h2 id="jit_time" class="text-md font-semibold mb-2 text-center">Just In Time Information</h2>
-                        <div class="grid grid-cols-2 gap-4">
+                        <p id="jit_time" class="mb-4 text-center">Just In Time Information</p>
+                        <div class="bg-blue-100 grid rounded-lg grid-cols-2 gap-4 p-4">
                             <div id="hr_display"></div>
                             <div id="temp_display"></div>
                             <div id="rr_display"></div>
                             <div id="bp_display"></div>
+                            <div id="spo2_display"></div>
+                            <div id="sofa_display"></div>
                         </div>
                     </div>
                     <div id="elixhauser" class="bg-white p-4 border border-gray-300 rounded-lg">
@@ -208,12 +210,15 @@
                     return response.json();
                 })
                 .then(data => {
-                    document.getElementById('subject_name_display').innerHTML = `<strong>Name:</strong> ${data.name}`;
-                    document.getElementById('jit_time').innerHTML = `Just In Time: ${data.latest_chart_time}`;
+                    document.getElementById('subject_age_display').innerHTML = `<strong>Age:</strong> ${data.age}`;
+                    // document.getElementById('subject_name_display').innerHTML = `<strong>Name:</strong> ${data.name}`;
+                    document.getElementById('jit_time').innerHTML = `<strong>Just In Time:</strong> ${data.latest_chart_time}`;
                     document.getElementById('hr_display').innerHTML = `<strong>Heart Rate:</strong> ${data.latest_heart_rate} bpm`;
                     document.getElementById('temp_display').innerHTML = `<strong>Temperature:</strong> ${data.latest_temp_F} F`;
                     document.getElementById('rr_display').innerHTML = `<strong>Respiratory Rate:</strong> ${data.latest_respiratory_rate} bpm`;
-                    document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mm Hg`;
+                    document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mmHg`;
+                    document.getElementById('spo2_display').innerHTML = `<strong>Blood Oxygen:</strong> ${data.spo2}%`;
+                    document.getElementById('sofa_display').innerHTML = `<strong>SOFA Score:</strong> ${data.sofa}`;
 
                     const listElement = document.querySelector('#elixhauser ul');
                     listElement.innerHTML = '';  // Clear existing list items

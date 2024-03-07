@@ -14,5 +14,8 @@
         "rheumatoid_arthritis",
         "coagulopathy",
         "fluid_electrolyte"
-    ]
+    ],
+    "age": 24,
+    "spo2": 100,
+    "sofa": 5
 }
