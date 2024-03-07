@@ -2,9 +2,16 @@
     "name": "John Doe",
     "subject_id": 433,
     "subgroup": 1,
-    "latest_blood_pressure": 101.0,
-    "latest_chart_time": "2164-03-11T12:00:00",
+    "latest_blood_pressure": 101,
+    "latest_chart_time": "2064-03-11T12:00:00",
     "latest_temp_F": 97.3000427246094,
     "latest_heart_rate": 83.0,
-    "latest_respiratory_rate": 11.0
+    "latest_respiratory_rate": 11.0,
+    "elixhauser": [
+        "congestive_heart_failure",
+        "valvular_disease",
+        "hypertension",
+        "renal_failure",
+        "liver_disease"
+    ]
 }
