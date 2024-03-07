@@ -13,5 +13,8 @@
         "hypertension",
         "renal_failure",
         "liver_disease"
-    ]
+    ],
+    "age": 51,
+    "spo2": 95,
+    "sofa": 5
 }

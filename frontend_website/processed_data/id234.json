@@ -14,5 +14,8 @@
         "chronic_pulmonary",
         "diabetes_complicated",
         "renal_failure"
-    ]
+    ],
+    "age": 54,
+    "spo2": 100,
+    "sofa": 4
 }
