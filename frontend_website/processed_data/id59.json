@@ -2,9 +2,17 @@
     "name": "John Doe",
     "subject_id": 59,
     "subgroup": 1,
-    "latest_blood_pressure": 163.0,
-    "latest_chart_time": "2197-11-16T19:00:00",
-    "latest_temp_F": 97.5999984741211,
+    "latest_blood_pressure": 163,
+    "latest_chart_time": "1997-11-16T19:00:00",
+    "latest_temp_F": 97.59999847,
     "latest_heart_rate": 74.0,
-    "latest_respiratory_rate": 16.0
+    "latest_respiratory_rate": 16.0,
+    "elixhauser": [
+        "cardiac_arrhythmias",
+        "hypertension",
+        "diabetes_complicated",
+        "hypothyroidism",
+        "renal_failure",
+        "depression"
+    ]
 }

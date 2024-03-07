@@ -4,6 +4,7 @@
     <title>Dashboard with Visualizations</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 </head>
 <body class="flex flex-col min-h-screen m-0 font-sans">
     <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
@@ -45,19 +46,19 @@
                             <div id="bp_display"></div>
                         </div>
                     </div>
-                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
+                    <div id="elixhauser" class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
-                        <ul class="list-disc pl-5">
-                            <li class="mb-2"></li>
+                        <ul id="comorbidity" class="list-disc pl-5">
                         </ul>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg col-span-2 row-span-2">
                         <select id="visualSelector">
-                            <option value="visual1">Visual 1 - Circle</option>
-                            <option value="visual2">Visual 2 - Rectangle</option>
+                            <option value="visual1">Subgroup Visuals</option>
+                            <option value="visual2">Patient Visuals</option>
                             <!-- Add more options for additional visuals -->
                         </select>
-                        <div id="d3VisualContainer"></div> <!-- Container for Visuals -->
+                        <div id="visContainer"></div>
+                        <!-- <div id="d3VisualContainer"></div> Container for Visuals -->
                     </div>
                 </div>
                 
@@ -218,6 +219,15 @@
                     document.getElementById('temp_display').innerHTML = `<strong>Temperature:</strong> ${data.latest_temp_F} F`;
                     document.getElementById('rr_display').innerHTML = `<strong>Respiratory Rate:</strong> ${data.latest_respiratory_rate} bpm`;
                     document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mm Hg`;
+
+                    const listElement = document.querySelector('#elixhauser ul');
+                    listElement.innerHTML = '';  // Clear existing list items
+                    data.elixhauser.forEach(category => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = category;
+                        listItem.classList.add('mb-2');
+                        listElement.appendChild(listItem);
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
@@ -232,54 +242,73 @@
             console.log('No data file specified.');
         }
 
-        // Function to draw Visual 1
-        function drawVisual1() {
-            const svg = d3.select('#d3VisualContainer').append('svg')
-                .attr('width', 200)
-                .attr('height', 200);
+        document.addEventListener('DOMContentLoaded', function() {
+            var visualSelector = document.getElementById('visualSelector');
+            var visualContainer = document.getElementById('visContainer');
+            visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Sheet3?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>`;
 
-            svg.append('circle')
-                .attr('cx', 100)
-                .attr('cy', 100)
-                .attr('r', 50)
-                .attr('fill', 'red');
-        }
-
-        // Function to draw Visual 2
-        function drawVisual2() {
-            const svg = d3.select('#d3VisualContainer').append('svg')
-                .attr('width', 200)
-                .attr('height', 200);
-
-            svg.append('rect')
-                .attr('x', 50)
-                .attr('y', 50)
-                .attr('width', 100)
-                .attr('height', 100)
-                .attr('fill', 'blue');
-        }
-
-        // Function to update the visual based on the dropdown selection
-        function updateVisual(selectedVisual) {
-            // Clear the previous visual
-            d3.select('#d3VisualContainer').selectAll('*').remove();
-
-            // Draw the selected visual
-            if (selectedVisual === 'visual1') {
-                drawVisual1();
-            } else if (selectedVisual === 'visual2') {
-                drawVisual2();
-            }
-            // Add more conditions for additional visuals
-        }
-
-        // Event listener for the dropdown
-        document.getElementById('visualSelector').addEventListener('change', function() {
-            updateVisual(this.value);
+            visualSelector.addEventListener('change', function() {
+                if (this.value === 'visual1') {
+                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Sheet3?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>`;
+                } else if (this.value === 'visual2') {
+                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardPatientVitals/Sheet2?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>`;
+                }
+            });
         });
 
-        // Initial visual setup
-        updateVisual('visual1'); // Default to showing the first visual
+
+
+        // // Function to draw Visual 1
+        // function drawVisual1() {
+        //     const svg = d3.select('#d3VisualContainer').append('svg')
+        //         .attr('width', 200)
+        //         .attr('height', 200);
+
+        //     svg.append('circle')
+        //         .attr('cx', 100)
+        //         .attr('cy', 100)
+        //         .attr('r', 50)
+        //         .attr('fill', 'red');
+        // }
+
+        // // Function to draw Visual 2
+        // function drawVisual2() {
+        //     const svg = d3.select('#d3VisualContainer').append('svg')
+        //         .attr('width', 200)
+        //         .attr('height', 200);
+
+        //     svg.append('rect')
+        //         .attr('x', 50)
+        //         .attr('y', 50)
+        //         .attr('width', 100)
+        //         .attr('height', 100)
+        //         .attr('fill', 'blue');
+        // }
+
+        // // Function to update the visual based on the dropdown selection
+        // function updateVisual(selectedVisual) {
+        //     // Clear the previous visual
+        //     d3.select('#d3VisualContainer').selectAll('*').remove();
+
+        //     // Draw the selected visual
+        //     if (selectedVisual === 'visual1') {
+        //         drawVisual1();
+        //     } else if (selectedVisual === 'visual2') {
+        //         drawVisual2();
+        //     }
+        //     // Add more conditions for additional visuals
+        // }
+
+        // // Event listener for the dropdown
+        // document.getElementById('visualSelector').addEventListener('change', function() {
+        //     updateVisual(this.value);
+        // });
+
+        // // Initial visual setup
+        // updateVisual('visual1'); // Default to showing the first visual
 
     </script>
 </body>
