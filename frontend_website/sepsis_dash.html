@@ -113,14 +113,18 @@
                             Select a disease to see its description.
                         </div>
                         <!-- JavaScript file for R function (02_logistic_regression.R) -->
-                        <script src="scripts/sub1_comorbidity_logistic.js"></script> <!-- Link to your JavaScript file -->
+                        <script src="scripts/sub1_comorbidity_logistic.js"></script>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
-                        <div id="risk_banner">
-                        </div>
-                        <p class="text-sm text-gray-600 italic">Next steps: [INSERT NEXT STEPS HERE]</p>
+                        <!-- The div for displaying the risk level -->
+                        <div id="risk_banner" class="text-center font-medium"></div>
+                        <!-- The paragraph for next steps with a span to insert text dynamically -->
+                        <p class="text-sm text-gray-600 italic">Next steps: <span id="nextSteps"></span></p>
+                        <!-- JavaScript file to update the content based on the model's output -->
+                        <script src="scripts/flag_yellow.js"></script>
                     </div>
+                    
                 </div>
             </div>
         </section>
