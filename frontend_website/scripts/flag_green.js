@@ -8,3 +8,4 @@ function updateNextStepsForLowRisk() {
     // Updating the innerHTML of the targeted element with the low risk steps
     nextStepsElement.innerHTML = lowRiskSteps;
 }
+window.onload = updateNextStepsForLowRisk;

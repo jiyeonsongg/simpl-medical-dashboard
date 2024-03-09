@@ -8,3 +8,4 @@ function updateNextStepsForHighRisk() {
     // Updating the innerHTML of the targeted element with the high risk steps
     nextStepsElement.innerHTML = highRiskSteps;
 }
+window.onload = updateNextStepsForHighRisk;
