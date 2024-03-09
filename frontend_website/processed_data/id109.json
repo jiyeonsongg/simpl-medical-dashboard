@@ -8,12 +8,12 @@
     "latest_heart_rate": 97.0,
     "latest_respiratory_rate": 26.0,
     "elixhauser": [
-        "congestive_heart_failure",
-        "hypertension",
-        "renal_failure",
-        "rheumatoid_arthritis",
-        "coagulopathy",
-        "fluid_electrolyte"
+        "Congestive Heart Failure",
+        "Hypertension",
+        "Renal Failure",
+        "Rheumatoid Arthritis",
+        "Coagulopathy",
+        "Fluid Electrolyte"
     ],
     "age": 24,
     "spo2": 100,

@@ -31,7 +31,7 @@
                 <!-- Left side -->
                 <div class="grid grid-cols-2 grid-rows-3 gap-4">
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h2 class="text-lg font-semibold mb-4 text-center">Patient Information</h2>
+                        <h2 class="text-xl font-semibold mb-4 text-center">Patient Information</h2>
                         <div class="bg-blue-100 grid rounded-lg grid-cols-2 gap-4 mb-4 p-4">
                             <div id="subject_id_display"></div> <!-- Subject ID -->
                             <!-- <div id="subject_name_display"></div> Subject Name -->
@@ -49,9 +49,6 @@
                         </div>
                     </div>
                     <div id="elixhauser" class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h2 class="text-lg font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
-                        <ul id="comorbidity" class="list-disc pl-5">
-                        </ul>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg col-span-2 row-span-2">
                         <select id="visualSelector">
@@ -67,13 +64,15 @@
                 <!-- Right side -->
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h2 class="text-lg font-semibold mb-4 text-center">Patient Group Analysis</h2>
-                        <div class="text-center p-4 my-4 bg-blue-100 rounded-lg">
+                        <h2 class="text-xl font-semibold mb-4 text-center">Patient Group Analysis</h2>
+                        <div class="text-center p-9 my-4 bg-blue-100 rounded-lg">
                             <h3 class="text-xl font-bold">Subgroup 1</h3>
                             <p class="text-green-600">Likelihood: <span class="font-bold">83%</span></p>
                         </div>
-                        <p class="text-sm text-gray-600 italic">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
-
+                        <p class="text-sm text-gray-600 italic mb-4">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
+                        <h2 class="text-xl font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
+                        <ul id="comorbidity" class="list-disc pl-5">
+                        </ul>
                         <!-- Disease selection dropdown -->
                         <div class="text-center mb-4">
                             <label for="disease-select" class="block mb-2 text-sm font-medium text-gray-900">Select a Disease:</label>
@@ -119,15 +118,14 @@
                         <script src="scripts/sub1_comorbidity_logistic.js"></script>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <h2 class="text-lg font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
+                        <h2 class="text-xl font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
                         <!-- The div for displaying the risk level -->
                         <div id="risk_banner" class="text-center font-medium"></div>
                         <!-- The paragraph for next steps with a span to insert text dynamically -->
                         <p class="text-sm text-gray-600 italic">Next steps: <span id="nextSteps"></span></p>
                         <!-- JavaScript file to update the content based on the model's output -->
-                        <script src="scripts/flag_yellow.js"></script>
+                        <!-- <script src="scripts/flag_red.js"></script> -->
                     </div>
-                    
                 </div>
             </div>
         </section>
@@ -181,24 +179,61 @@
             document.getElementById('subject_id_display').innerHTML = `<strong>ID:</strong> 0000`;
         }
 
+
+        function updateNextStepsForLowRisk() {
+            // Targeting the span by its ID
+            const nextStepsElement = document.getElementById('nextSteps');
+
+            // Define the instructions for low risk next steps, incorporating machine learning model details
+            const lowRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a low (green flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 7 and 10, inclusive. <br><br> The patient currently appears to be stable, but continuous observation is recommended. Please ensure regular monitoring of vital signs and reassess the patient's condition periodically to detect any unforeseen changes or deterioration.";
+
+            // Updating the innerHTML of the targeted element with the low risk steps
+            nextStepsElement.innerHTML = lowRiskSteps;
+        }
+
+        function updateNextStepsForHighRisk() {
+            // Targeting the span by its ID
+            const nextStepsElement = document.getElementById('nextSteps');
+
+            // Define the instructions for high risk next steps, incorporating machine learning model details
+            const highRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a high (red flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 0 and 3, inclusive. <br><br> Immediate and consistent attention is required. Please initiate emergency procedures, conduct a comprehensive review of the patient's medical records, and prepare for potential intensive care intervention. This condition demands prompt action to prevent critical outcomes.";
+
+            // Updating the innerHTML of the targeted element with the high risk steps
+            nextStepsElement.innerHTML = highRiskSteps;
+        }
+
+        function updateNextStepsForMediumRisk() {
+            // Targeting the span by its ID
+            const nextStepsElement = document.getElementById('nextSteps');
+
+            // Define the instructions for medium risk next steps, incorporating machine learning model details
+            const mediumRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a medium (yellow flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with other factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 4 and 6, inclusive. <br><br> Please conduct a thorough review of the patient's medical history, including comorbidity conditions and current vital sign metrics, to mitigate the risk of sepsis onset. Regular monitoring and potential intervention may be required. It is important to note that our model's accuracy ranges from 60 to 70% per subgroup, which underscores the need for clinical judgment in conjunction with the algorithm's predictions.";
+
+            // Updating the innerHTML of the targeted element with the medium risk steps
+            nextStepsElement.innerHTML = mediumRiskSteps;
+        }
+
         // Set the background color of the body based on the risk color
         if (riskColor === 'green') {
             document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-green-100 border-l-4 border-green-500 rounded-lg">
                             <h3 class="text-xl font-bold text-green-600">Green Flag - Low Risk</h3>
                             <p class="mb-4">This patient has been identified as at low risk for developing sepsis.</p>
                         </div>`;
+            updateNextStepsForLowRisk();
         }
         else if (riskColor === 'yellow') {
             document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
                             <h3 class="text-xl font-bold text-yellow-600">Yellow Flag - Medium Risk</h3>
                             <p class="mb-4">This patient has been identified as at Medium risk for developing sepsis.</p>
                         </div>`;
+            updateNextStepsForMediumRisk();
         }
         else if (riskColor === 'red') {
             document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-red-100 border-l-4 border-red-500 rounded-lg">
                             <h3 class="text-xl font-bold text-red-600">Red Flag - Severe Risk</h3>
                             <p class="mb-4">This patient has been identified as at severe risk for developing sepsis.</p>
                         </div>`;
+            updateNextStepsForHighRisk();
         }
         else {
             document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-blue-100 border-l-4 border-blue-500 rounded-lg">
@@ -225,7 +260,7 @@
                     document.getElementById('spo2_display').innerHTML = `<strong>Blood Oxygen:</strong> ${data.spo2}%`;
                     document.getElementById('sofa_display').innerHTML = `<strong>SOFA Score:</strong> ${data.sofa}`;
 
-                    const listElement = document.querySelector('#elixhauser ul');
+                    const listElement = document.querySelector('#comorbidity');
                     listElement.innerHTML = '';  // Clear existing list items
                     data.elixhauser.forEach(category => {
                         const listItem = document.createElement('li');

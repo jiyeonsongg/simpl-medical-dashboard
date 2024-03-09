@@ -8,12 +8,12 @@
     "latest_heart_rate": 86.0,
     "latest_respiratory_rate": 31.0,
     "elixhauser": [
-        "valvular_disease",
-        "hypertension",
-        "paralysis",
-        "chronic_pulmonary",
-        "diabetes_complicated",
-        "renal_failure"
+        "Valvular Disease",
+        "Hypertension",
+        "Paralysis",
+        "Chronic Pulmonary",
+        "Diabetes Complicated",
+        "Renal Failure"
     ],
     "age": 54,
     "spo2": 100,

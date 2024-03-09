@@ -8,8 +8,8 @@
     "latest_heart_rate": 93.0,
     "latest_respiratory_rate": 26.0,
     "elixhauser": [
-        "congestive_heart_failure",
-        "diabetes_complicated"
+        "Congestive Heart Failure",
+        "Diabetes Complicated"
     ],
     "age": 61,
     "spo2": 97,

@@ -8,11 +8,11 @@
     "latest_heart_rate": 83.0,
     "latest_respiratory_rate": 11.0,
     "elixhauser": [
-        "congestive_heart_failure",
-        "valvular_disease",
-        "hypertension",
-        "renal_failure",
-        "liver_disease"
+        "Congestive Heart Failure",
+        "Valvular Disease",
+        "Hypertension",
+        "Renal Failure",
+        "Liver Disease"
     ],
     "age": 51,
     "spo2": 95,

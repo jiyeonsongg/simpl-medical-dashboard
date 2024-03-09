@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard with Visualizations</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen m-0 font-sans">
+    <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
+        <a href="index.html">
+            <img src="images/logo.png" alt="Logo" class="h-12"> <!-- Adjust the path and class as needed -->
+        </a>
+        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
+    </header>
+    <div id="dashboard" class="flex flex-1 relative">
+        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-10">
+            <nav>
+                <ul>
+                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
+                    <li><a href="about.html" class="text-blue-600 hover:text-blue-700">About</a></li>
+                    <li><a href="report.html" class="text-blue-600 hover:text-blue-700">Report</a></li>
+                    <!-- More links for other visualizations -->
+                </ul>
+            </nav>
+        </aside>
+        <section id="main-content" class="flex-1 p-8 grid grid-cols-2 grid-rows-2 gap-8">
+            <div class="bg-blue-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato1.JPG" alt="Person 1" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Oakkar Aung</h3>
+                <p class="text-lg">Email: oaaung@ucsd.edu<br>Oakkar is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
+            </div>
+            <div class="bg-green-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato2.JPG" alt="Person 2" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Rihana Mohamed</h3>
+                <p class="text-lg">Email: rmohamed@ucsd.edu<br>Rihana is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
+            </div>
+            <div class="bg-yellow-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato3.JPG" alt="Person 3" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Vibha Sastry</h3>
+                <p class="text-lg">Email: vsastry@ucsd.edu<br>Vibha is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
+            </div>
+            <div class="bg-red-100 rounded-lg p-8 shadow flex flex-col items-center text-center">
+                <img src="images/potato4.JPG" alt="Person 4" class="w-32 h-32 rounded-full mb-4 object-cover">
+                <h3 class="text-2xl font-bold mb-4">Jiyeon Song</h3>
+                <p class="text-lg">Email: jis036@ucsd.edu<br>Jiyeon is a senior of UC San Diego's Halicioglu Data Science Institute.</p>
+            </div>
+        </section>               
+    </div>
+    <footer class="bg-gray-800 text-white text-center p-4">
+        DSC 180B
+    </footer>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            var sidebar = document.getElementById('sidebar');
+            // Toggle between -translate-x-full and translate-x-0 to show/hide the sidebar
+            sidebar.classList.toggle('translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+    </script>
+</body>
+</html>
