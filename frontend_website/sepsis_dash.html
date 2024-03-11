@@ -10,7 +10,7 @@
     <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
         <a href="index.html" class="flex items-center"> <!-- Use flex and items-center to align items horizontally -->
             <img src="images/logo.png" alt="Logo" class="h-12"> <!-- Your logo image -->
-            <span class="ml-3 text-xl font-bold">CAST: Comorbidity and Sepsis Tracker</span> <!-- Your logo text right next to the image -->
+            <span class="ml-3 text-xl font-bold">Sepsis Insight and Management Platform</span> <!-- Your logo text right next to the image -->
         </a>
         <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
     </header>
@@ -49,11 +49,13 @@
                         </div>
                     </div>
                     <div id="elixhauser" class="bg-white p-4 border border-gray-300 rounded-lg">
+                        <tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg col-span-2 row-span-2">
                         <select id="visualSelector">
-                            <option value="visual1">Subgroup Visuals</option>
-                            <option value="visual2">Patient Visuals</option>
+                            <option value="visual1">Procedure History</option>
+                            <option value="visual2">Vitals Timeline</option>
                             <!-- Add more options for additional visuals -->
                         </select>
                         <div id="visContainer"></div>
@@ -66,7 +68,7 @@
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-xl font-semibold mb-4 text-center">Patient Group Analysis</h2>
                         <div class="text-center p-9 my-4 bg-blue-100 rounded-lg">
-                            <h3 class="text-xl font-bold">Subgroup 1</h3>
+                            <h3 class="text-xl font-bold">Cardiopulmonary Group</h3>
                             <p class="text-green-600">Likelihood: <span class="font-bold">83%</span></p>
                         </div>
                         <p class="text-sm text-gray-600 italic mb-4">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
@@ -122,7 +124,7 @@
                         <!-- The div for displaying the risk level -->
                         <div id="risk_banner" class="text-center font-medium"></div>
                         <!-- The paragraph for next steps with a span to insert text dynamically -->
-                        <p class="text-sm text-gray-600 italic">Next steps: <span id="nextSteps"></span></p>
+                        <p class="text-sm text-gray-600 italic"><span id="nextSteps"></span></p>
                         <!-- JavaScript file to update the content based on the model's output -->
                         <!-- <script src="scripts/flag_red.js"></script> -->
                     </div>
@@ -196,7 +198,7 @@
             const nextStepsElement = document.getElementById('nextSteps');
 
             // Define the instructions for high risk next steps, incorporating machine learning model details
-            const highRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a high (red flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 0 and 3, inclusive. <br><br> Immediate and consistent attention is required. Please initiate emergency procedures, conduct a comprehensive review of the patient's medical records, and prepare for potential intensive care intervention. This condition demands prompt action to prevent critical outcomes.";
+            const highRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a high (red flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 12 and 24, inclusive. <br><br> Immediate and consistent attention is required. Please initiate emergency procedures, conduct a comprehensive review of the patient's medical records, and prepare for potential intensive care intervention. This condition demands prompt action to prevent critical outcomes.";
 
             // Updating the innerHTML of the targeted element with the high risk steps
             nextStepsElement.innerHTML = highRiskSteps;
@@ -285,12 +287,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             var visualSelector = document.getElementById('visualSelector');
             var visualContainer = document.getElementById('visContainer');
-            visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Sheet3?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link'>
+            visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/ProcedureTimeline/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
                         </tableau-viz>`;
 
             visualSelector.addEventListener('change', function() {
                 if (this.value === 'visual1') {
-                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Sheet3?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link'>
+                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/ProcedureTimeline/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
                         </tableau-viz>`;
                 } else if (this.value === 'visual2') {
                     visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardPatientVitals/Sheet2?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
