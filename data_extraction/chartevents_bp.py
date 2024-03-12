@@ -109,11 +109,11 @@ def main():
     chartevents_10_bp_df = process_other_bp_table(10, conn)
     chartevents_12_bp_df = process_other_bp_table(12, conn)
 
-    csv_path_1 = 'chartevents_bp.csv'
-    csv_path_2 =  'chartevents_1_bp.csv'
-    csv_path_3 = 'chartevents_4_bp.csv'
-    csv_path_4 = 'chartevents_10_bp.csv'
-    csv_path_5 = 'chartevents_12_bp.csv'
+    csv_path_1 = '../processed_data/chartevents_bp.csv'
+    csv_path_2 =  '../processed_data/chartevents_1_bp.csv'
+    csv_path_3 = '../processed_data/chartevents_4_bp.csv'
+    csv_path_4 = '../processed_data/chartevents_10_bp.csv'
+    csv_path_5 = '../processed_data/chartevents_12_bp.csv'
 
     bp_df.to_csv(csv_path_1, index=False)
     chartevents_1_bp_df.to_csv(csv_path_2, index=False)

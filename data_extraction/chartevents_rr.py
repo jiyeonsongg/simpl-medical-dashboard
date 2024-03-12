@@ -115,10 +115,10 @@ def main():
     chartevents_12_rr_df = process_other_rr_table("chartevents_12", conn)
     chartevents_15_rr_df = process_other_rr_table('chartevents_15', conn)
 
-    csv_path_1 = 'chartevents_rr.csv'
-    csv_path_2 =  'chartevents_5_rr.csv'
-    csv_path_3 = 'chartevents_12_rr.csv'
-    csv_path_4 = 'chartevents_15_rr.csv'
+    csv_path_1 = '../processed_data/chartevents_rr.csv'
+    csv_path_2 =  '../processed_data/chartevents_5_rr.csv'
+    csv_path_3 = '../processed_data/chartevents_12_rr.csv'
+    csv_path_4 = '../processed_data/chartevents_15_rr.csv'
 
     rr_df.to_csv(csv_path_1, index=False)
     chartevents_5_rr_df.to_csv(csv_path_2, index=False)

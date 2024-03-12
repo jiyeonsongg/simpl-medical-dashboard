@@ -65,9 +65,9 @@ def main():
     chartevents_7_wbc_df = process_chartevents_wbc_table(conn, 7)
     chartevents_8_wbc_df = process_chartevents_wbc_table(conn, 8)
 
-    csv_path_1 = 'chartevents_wbc.csv'
-    csv_path_2 =  'chartevents_7_wbc.csv'
-    csv_path_3 = 'chartevents_8_wbc.csv'
+    csv_path_1 = '../chartevents_wbc.csv'
+    csv_path_2 =  '../chartevents_7_wbc.csv'
+    csv_path_3 = '../chartevents_8_wbc.csv'
 
     # Save the DataFrame to CSV
     wbc_df.to_csv(csv_path_1, index=False)

@@ -105,7 +105,7 @@ def main():
 
     chartevents_temp_df = process_chartevents_temp(conn)
 
-    csv_path_1 = 'chartevents_temp.csv'
+    csv_path_1 = '../processed_data/chartevents_temp.csv'
     chartevents_temp_df.to_csv(csv_path_1, index=False)
 
 if __name__ == "__main__":
