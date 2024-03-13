@@ -7,3 +7,4 @@ seaborn
 notebook
 networkx
 psycopg2
+xgboost
