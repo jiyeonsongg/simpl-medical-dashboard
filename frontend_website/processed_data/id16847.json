@@ -13,5 +13,6 @@
     "age": 41,
     "spo2": 96.0,
     "sofa": 6,
-    "prob": 62.0
+    "prob": 62.0,
+    "white_blood": 5600.0
 }

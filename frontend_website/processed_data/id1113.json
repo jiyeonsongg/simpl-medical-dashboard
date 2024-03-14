@@ -4,11 +4,10 @@
     "subgroup": 1,
     "latest_blood_pressure": 61.0,
     "latest_chart_time": "2107-03-03T14:00:00",
-    "latest_temp_F": 102.500057220459,
+    "latest_temp_F": 102.5,
     "latest_heart_rate": 136.0,
     "latest_respiratory_rate": 32.0,
     "elixhauser": [
-        "Congestive Heart Failure",
         "Hypertension",
         "Other Neurological",
         "Renal Failure",
@@ -17,5 +16,6 @@
     "age": 46,
     "spo2": 77.0,
     "sofa": 9,
-    "prob": 74.0
+    "prob": 74.0,
+    "white_blood": 3300.0
 }

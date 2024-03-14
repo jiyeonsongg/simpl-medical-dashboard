@@ -4,11 +4,10 @@
     "subgroup": 2,
     "latest_blood_pressure": 104.0,
     "latest_chart_time": "2116-04-28T09:30:00",
-    "latest_temp_F": 98.900057220459,
+    "latest_temp_F": 98.9,
     "latest_heart_rate": 95.0,
     "latest_respiratory_rate": 23.0,
     "elixhauser": [
-        "Congestive Heart Failure",
         "Cardiac Arrhythmias",
         "Valvular Disease",
         "Hypertension",
@@ -19,5 +18,6 @@
     "age": 54,
     "spo2": 100.0,
     "sofa": 3,
-    "prob": 98.0
+    "prob": 98.0,
+    "white_blood": 7500.0
 }

@@ -124,7 +124,7 @@
                             Select a disease to see its description.
                         </div>
                         <!-- JavaScript file for R function (02_logistic_regression.R) -->
-                        <script src="scripts/sub1_comorbidity_logistic.js"></script>
+                        <script id="subs" src="scripts/sub1_comorbidity_logistic.js"></script>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-xl font-semibold mb-4 text-center">Sepsis Risk Alert</h2>
@@ -174,6 +174,9 @@
 
         // Extract color from URL parameters
         var riskColor = getQueryParam('risk_color');
+
+        // Extract subgroup from URL parameters
+        var subgroup = getQueryParam('subgroup');
 
         // Select the p tag by its id and set its content to the userId
         if (userId) {
@@ -275,11 +278,12 @@
                     document.getElementById('rr_display').innerHTML = `<strong>Respiratory Rate:</strong> ${data.latest_respiratory_rate} bpm`;
                     document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mmHg`;
                     document.getElementById('spo2_display').innerHTML = `<strong>Blood Oxygen:</strong> ${data.spo2}%`;
-                    document.getElementById('sofa_display').innerHTML = `<strong>SOFA Score:</strong> ${data.sofa}`;
+                    document.getElementById('sofa_display').innerHTML = `<strong>White Blood Cell Count:</strong> ${data.white_blood} cells/µL`;
                     document.getElementById('confidence_level').innerHTML = data.prob;
                     document.getElementById('confidence_level2').innerHTML = data.prob;
                     document.getElementById('group1').innerHTML = getSubgroup(data.subgroup)
                     document.getElementById('group2').innerHTML = getSubgroup(data.subgroup)
+
 
                     const listElement = document.querySelector('#comorbidity');
                     listElement.innerHTML = '';  // Clear existing list items
@@ -304,6 +308,281 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            var selectElement = document.getElementById('disease-select');
+            var descriptionElement = document.getElementById('disease-description');
+
+            selectElement.addEventListener('change', function() {
+                var value = this.value;
+                var description = getDiseaseDescription(value);
+                descriptionElement.innerHTML = description; // Change 'textContent' to 'innerHTML'
+            });
+
+            if (subgroup == 1){
+                var sharedDescription = "This patient is in the Cardiopulmonary group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Cardiac Arrhythmias, Valvular Disease, Hypertension, Chronic Pulmonary Conditions, Complicated Diabetes, Renal Failure, Coagulopathy",
+                    cardiac_arrhythmias: "Congestive Heart Failure, Peripheral Vascular Disease, Hypertension, Complicated Diabetes, Renal Failure, Coagulopathy, Fluid and Electrolyte Disorders",
+                    valvular_disease: "Congestive Heart Failure, Cardiac Arrhythmias",
+                    pulmonary_circulation: "(No significant variables beyond the Intercept)",
+                    peripheral_vascular: "Cardiac Arrhythmias, Complicated Diabetes",
+                    hypertension: "Congestive Heart Failure, Complicated Diabetes, Renal Failure, Depression",
+                    paralysis: "(No significant variables beyond the Intercept)",
+                    other_neurological: "Complicated Diabetes, Coagulopathy, Obesity, Weight Loss, Fluid and Electrolyte Disorders, Alcohol Abuse",
+                    chronic_pulmonary: "Congestive Heart Failure, Complicated Diabetes, Obesity, Depression",
+                    diabetes_uncomplicated: "(No significant variables beyond the Intercept)",
+                    diabetes_complicated: "Congestive Heart Failure, Cardiac Arrhythmias, Peripheral Vascular Disease, Hypertension, Other Neurological Disorders, Chronic Pulmonary, Renal Failure, AIDS/HIV, Rheumatoid Arthritis, Obesity, Psychoses",
+                    hypothyroidism: "Solid Tumor without Metastasis, Psychoses, Depression",
+                    renal_failure: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Complicated Diabetes, Obesity, Depression",
+                    liver_disease: "Solid Tumor without Metastasis, Coagulopathy, Weight Loss, Alcohol Abuse",
+                    peptic_ulcer: "(No significant variables beyond the Intercept)",
+                    aids: "Complicated Diabetes",
+                    lymphoma: "Coagulopathy",
+                    metastatic_cancer: "(No significant variables beyond the Intercept)",
+                    solid_tumor: "Hypothyroidism, Coagulopathy, Fluid and Electrolyte Disorders",
+                    rheumatoid_arthritis: "Paralysis, Complicated Diabetes, Coagulopathy, Depression",
+                    coagulopathy: "Congestive Heart Failure, Cardiac Arrhythmias, Other Neurological Disorders, Liver Disease, Lymphoma, Solid Tumor without Metastasis, Rheumatoid Arthritis, Fluid and Electrolyte Disorders, Blood Loss Anemia",
+                    obesity: "Other Neurological Disorders, Chronic Pulmonary, Complicated Diabetes, Hypothyroidism, Renal Failure, Fluid and Electrolyte Disorders",
+                    weight_loss: "Other Neurological Disorders, Liver Disease",
+                    fluid_electrolyte: "Cardiac Arrhythmias, Other Neurological Disorders, Solid Tumor without Metastasis, Coagulopathy, Obesity, Deficiency Anemias, Depression",
+                    blood_loss_anemia: "Coagulopathy",
+                    deficiency_anemias: "Fluid and Electrolyte Disorders",
+                    alcohol_abuse: "Other Neurological Disorders, Liver Disease, Drug Abuse",
+                    drug_abuse: "Alcohol Abuse",
+                    psychoses: "Complicated Diabetes",
+                    depression: "Hypertension, Chronic Pulmonary, Hypothyroidism, Renal Failure, Fluid and Electrolyte Disorders"
+                };
+            } else if (subgroup == 2) {
+                var sharedDescription = "This patient is in the Subgroup2, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                // Map each disease to its specific comorbidities
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Cardiac Arrhythmias, Peripheral Vascular Disease, Hypertension, Chronic Pulmonary Conditions, Complicated Diabetes, Obesity, Other Neurological Disorders, Coagulopathy, Alcohol Abuse",
+                    cardiac_arrhythmias: "Congestive Heart Failure, Valvular Disease, Hypertension, Paralysis, Uncomplicated Diabetes, Renal Failure, Obesity, Lymphoma, Metastatic Cancer",
+                    valvular_disease: "Cardiac Arrhythmias, Hypertension, Chronic Pulmonary, Uncomplicated Diabetes, Complicated Diabetes, Renal Failure, Liver Disease, Solid Tumor without Metastasis, Obesity, Deficiency Anemias",
+                    pulmonary_circulation: "(No significant variables beyond the Intercept)",
+                    peripheral_vascular: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Chronic Pulmonary, Uncomplicated Diabetes, Complicated Diabetes, Renal Failure",
+                    hypertension: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Uncomplicated Diabetes, Hypothyroidism, Renal Failure, Fluid and Electrolyte Disorders, Drug Abuse, Depression",
+                    paralysis: "Cardiac Arrhythmias, Peripheral Vascular Disease, Other Neurological Disorders",
+                    other_neurological: "Congestive Heart Failure, Paralysis, Weight Loss, Fluid and Electrolyte Disorders, Depression",
+                    chronic_pulmonary: "Congestive Heart Failure, Valvular Disease, Peripheral Vascular Disease, Uncomplicated Diabetes, Complicated Diabetes, Liver Disease, Solid Tumor without Metastasis, Obesity",
+                    diabetes_uncomplicated: "Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Hypertension, Chronic Pulmonary, Renal Failure, Liver Disease, Lymphoma, Coagulopathy, Obesity",
+                    diabetes_complicated: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Chronic Pulmonary, Renal Failure",
+                    hypothyroidism: "Congestive Heart Failure, Hypertension, Obesity, Depression",
+                    renal_failure: "Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Hypertension, Uncomplicated Diabetes, Metastatic Cancer, Coagulopathy, Fluid and Electrolyte Disorders",
+                    liver_disease: "Valvular Disease, Uncomplicated Diabetes, Solid Tumor without Metastasis, Coagulopathy, Fluid and Electrolyte Disorders, Blood Loss Anemia, Alcohol Abuse, Depression",
+                    peptic_ulcer: "(No significant variables beyond the Intercept)",
+                    aids: "(No significant variables)",
+                    lymphoma: "Cardiac Arrhythmias, Uncomplicated Diabetes, Coagulopathy",
+                    metastatic_cancer: "Cardiac Arrhythmias, Renal Failure, Blood Loss Anemia",
+                    solid_tumor: "Valvular Disease, Chronic Pulmonary, Liver Disease",
+                    rheumatoid_arthritis: "(No significant variables beyond the Intercept and Age)",
+                    coagulopathy: "Congestive Heart Failure, Uncomplicated Diabetes, Renal Failure, Liver Disease, Lymphoma, Weight Loss, Fluid and Electrolyte Disorders",
+                    obesity: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Chronic Pulmonary, Uncomplicated Diabetes, Hypothyroidism",
+                    weight_loss: "Other Neurological Disorders, Coagulopathy, Fluid and Electrolyte Disorders, Blood Loss Anemia",
+                    fluid_electrolyte: "Hypertension, Other Neurological Disorders, Renal Failure, Liver Disease, Coagulopathy, Weight Loss, Deficiency Anemias, Drug Abuse",
+                    blood_loss_anemia: "Liver Disease, Metastatic Cancer, Weight Loss",
+                    deficiency_anemias: "Valvular Disease, Fluid and Electrolyte Disorders, Depression",
+                    alcohol_abuse: "Congestive Heart Failure, Liver Disease",
+                    drug_abuse: "Hypertension, Fluid and Electrolyte Disorders",
+                    psychoses: "(No significant variables beyond the Intercept)",
+                    depression: "Hypertension, Other Neurological Disorders, Hypothyroidism, Liver Disease, Deficiency Anemias"
+                };
+            } else if (subgroup == 3) {
+                var sharedDescription = "This patient is in the Subgroup3, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                // Map each disease to its specific comorbidities
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Cardiac Arrhythmias, Valvular Disease, Pulmonary Circulation Disorders, Renal Failure, Liver Disease, Solid Tumor without Metastasis, Obesity, Fluid and Electrolyte Disorders, Metastatic Cancer, Alcohol Abuse, Depression",
+                    cardiac_arrhythmias: "Congestive Heart Failure, Valvular Disease, Obesity, Fluid and Electrolyte Disorders, Weight Loss",
+                    valvular_disease: "Congestive Heart Failure, Cardiac Arrhythmias, Paralysis, Weight Loss, Alcohol Abuse, Drug Abuse",
+                    pulmonary_circulation: "Congestive Heart Failure, Chronic Pulmonary, Metastatic Cancer",
+                    peripheral_vascular: "Weight Loss",
+                    hypertension: "Other Neurological Disorders, Uncomplicated Diabetes, Complicated Diabetes, Hypothyroidism, Renal Failure, Liver Disease, Lymphoma, Metastatic Cancer, Coagulopathy, Obesity, Weight Loss, Alcohol Abuse, Depression",
+                    paralysis: "Valvular Disease, Other Neurological Disorders",
+                    other_neurological: "Hypertension, Paralysis, Uncomplicated Diabetes, Weight Loss, Drug Abuse",
+                    chronic_pulmonary: "Pulmonary Circulation, Hypothyroidism, Metastatic Cancer, Obesity, Drug Abuse, Psychoses, Depression",
+                    diabetes_uncomplicated: "Hypertension, Other Neurological Disorders, AIDS/HIV, Obesity, Weight Loss, Blood Loss Anemia, Alcohol Abuse",
+                    diabetes_complicated: "Hypertension, Hypothyroidism, Weight Loss",
+                    hypothyroidism: "Hypertension, Chronic Pulmonary, Complicated Diabetes, Psychoses, Depression",
+                    renal_failure: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Liver Disease, AIDS/HIV, Metastatic Cancer, Solid Tumor without Metastasis, Weight Loss, Fluid and Electrolyte Disorders, Deficiency Anemias, Alcohol Abuse",
+                    liver_disease: "Congestive Heart Failure, Hypertension, Renal Failure, AIDS/HIV, Lymphoma, Weight Loss, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse, Depression",
+                    peptic_ulcer: "(No significant variables beyond the Intercept)",
+                    aids: "Hypertension, Uncomplicated Diabetes, Renal Failure, Liver Disease, Solid Tumor without Metastasis, Coagulopathy, Obesity, Weight Loss, Fluid and Electrolyte Disorders, Alcohol Abuse, Depression",
+                    lymphoma: "Hypertension, Liver Disease, Alcohol Abuse",
+                    metastatic_cancer: "Congestive Heart Failure, Pulmonary Circulation, Hypertension, Renal Failure, Fluid and Electrolyte Disorders, Alcohol Abuse.",
+                    solid_tumor: "Congestive Heart Failure, Valvular Disease, Renal Failure, Deficiency Anemias, Alcohol Abuse, Depression",
+                    rheumatoid_arthritis: "Alcohol Abuse",
+                    coagulopathy: "Pulmonary Circulation, Hypertension, AIDS/HIV, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse, Psychoses, Depression",
+                    obesity: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Chronic Pulmonary, Uncomplicated Diabetes, AIDS/HIV, Weight Loss, Fluid and Electrolyte Disorders, Alcohol Abuse, Psychoses",
+                    weight_loss: "Cardiac Arrhythmias, Peripheral Vascular Disease, Hypertension, Other Neurological Disorders, Uncomplicated Diabetes, Complicated Diabetes, Renal Failure, Liver Disease, AIDS/HIV, Obesity, Fluid and Electrolyte Disorders, Blood Loss Anemia, Deficiency Anemias",
+                    fluid_electrolyte: "Congestive Heart Failure, Cardiac Arrhythmias, Renal Failure, Liver Disease, Metastatic Cancer, Coagulopathy, Obesity, Weight Loss, Alcohol Abuse, Drug Abuse",
+                    blood_loss_anemia: "Weight Loss",
+                    deficiency_anemias: "Renal Failure, Solid Tumor without Metastasis, Weight Loss",
+                    alcohol_abuse: "Congestive Heart Failure, Valvular Disease, Hypertension, Uncomplicated Diabetes, Renal Failure, Liver Disease, AIDS/HIV, Lymphoma, Metastatic Cancer, Solid Tumor without Metastasis, Rheumatoid Arthritis, Coagulopathy, Obesity, Fluid and Electrolyte Disorders",
+                    drug_abuse: "Valvular Disease, Other Neurological Disorders, Chronic Pulmonary, Liver Disease, AIDS/HIV, Coagulopathy, Fluid and Electrolyte Disorders, Depression",
+                    psychoses: "Chronic Pulmonary, Hypothyroidism, Coagulopathy, Obesity",
+                    depression: "Congestive Heart Failure, Hypertension, Chronic Pulmonary, Hypothyroidism, Liver Disease, Solid Tumor without Metastasis, Coagulopathy, Drug Abuse"
+                };
+            } else if (subgroup == 4) {
+                var sharedDescription = "This patient is in the Subgroup4, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                // Map each disease to its specific comorbidities
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Peripheral Vascular Disease, Chronic Pulmonary Conditions, Uncomplicated Diabetes, Hypothyroidism, Obesity, Renal Failure, Fluid and Electrolyte Disorders",
+                    cardiac_arrhythmias: "Valvular Disease, Hypertension, Uncomplicated Diabetes, Hypothyroidism, Obesity, Renal Failure, Metastatic Cancer, Depression",
+                    valvular_disease: "Cardiac Arrhythmias, Peripheral Vascular Disease, Hypertension, Paralysis, Other Neurological Disorders, Chronic Pulmonary, Uncomplicated Diabetes, Renal Failure, Metastatic Cancer, Psychoses",
+                    pulmonary_circulation: "Hypertension",
+                    peripheral_vascular: "Congestive Heart Failure, Valvular Disease, Other Neurological Disorders, Chronic Pulmonary, Metastatic Cancer, Coagulopathy",
+                    hypertension: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Pulmonary Circulation, Chronic Pulmonary, Uncomplicated Diabetes, Complicated Diabetes, Hypothyroidism, Renal Failure, Metastatic Cancer, Obesity, Depression",
+                    paralysis: "Valvular Disease",
+                    other_neurological: "Valvular Disease, Peripheral Vascular Disease, Obesity, Fluid and Electrolyte Disorders",
+                    chronic_pulmonary: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Hypertension, Metastatic Cancer, Rheumatoid Arthritis, Coagulopathy, Obesity",
+                    diabetes_uncomplicated: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Hypertension, Renal Failure, Liver Disease, Coagulopathy, Obesity, Fluid and Electrolyte Disorders, Psychoses",
+                    diabetes_complicated: "Hypertension, Obesity, Fluid and Electrolyte Disorders",
+                    hypothyroidism: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Metastatic Cancer, Solid Tumor without Metastasis, Obesity",
+                    renal_failure: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Hypertension, Uncomplicated Diabetes, Depression",
+                    liver_disease: "Uncomplicated Diabetes",
+                    peptic_ulcer: "(No significant variables beyond the Intercept)",
+                    aids: "(No significant variables)",
+                    lymphoma: "(No significant variables)",
+                    metastatic_cancer: "Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Hypertension, Chronic Pulmonary, Hypothyroidism, Obesity, Fluid and Electrolyte Disorders",
+                    solid_tumor: "Hypothyroidism",
+                    rheumatoid_arthritis: "Chronic Pulmonary",
+                    coagulopathy: "Peripheral Vascular Disease, Chronic Pulmonary, Uncomplicated Diabetes, Fluid and Electrolyte Disorders",
+                    obesity: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Other Neurological Disorders, Chronic Pulmonary, Uncomplicated Diabetes, Complicated Diabetes, Hypothyroidism, Metastatic Cancer, Fluid and Electrolyte Disorders, Deficiency Anemias, Depression",
+                    weight_loss: "(No significant variables)",
+                    fluid_electrolyte: "Congestive Heart Failure, Other Neurological Disorders, Uncomplicated Diabetes, Complicated Diabetes, Metastatic Cancer, Coagulopathy, Obesity",
+                    blood_loss_anemia: "(No significant variables beyond the Intercept and Admission Type)",
+                    deficiency_anemias: "Obesity",
+                    alcohol_abuse: "(No significant variables beyond the Intercept and Admission Type)",
+                    drug_abuse: "Depression",
+                    psychoses: "Valvular Disease, Uncomplicated Diabetes, Depression",
+                    depression: "Hypertension, Uncomplicated Diabetes, Renal Failure, Obesity, Drug Abuse"
+                };
+            } else if (subgroup == 5) {
+                var sharedDescription = "This patient is in the Subgroup5, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                // Map each disease to its specific comorbidities
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Valvular Disease, Lymphoma",
+                    cardiac_arrhythmias: "Deficiency Anemias, Drug Abuse, Valvular Disease, Fluid and Electrolyte Disorders, Psychoses.",
+                    valvular_disease: "Congestive Heart Failure, Cardiac Arrhythmias, Fluid and Electrolyte Disorders, Drug Abuse",
+                    pulmonary_circulation: "Chronic Pulmonary, Coagulopathy, Obesity",
+                    peripheral_vascular: "(No significant variables beyond the Intercept)",
+                    hypertension: "Other Neurological Disorders, Liver Disease, AIDS/HIV, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse",
+                    paralysis: "Other Neurological Disorders, Deficiency Anemias",
+                    other_neurological: "Hypertension, Paralysis, Weight Loss",
+                    chronic_pulmonary: "Pulmonary Circulation Disorders, Liver Disease, Obesity, Alcohol Abuse, Drug Abuse, Depression",
+                    diabetes_uncomplicated: "(No significant variables beyond the Intercept)",
+                    diabetes_complicated: "Hypothyroidism, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse, Depression",
+                    hypothyroidism: "Complicated Diabetes, Lymphoma, Depression",
+                    renal_failure: "Rheumatoid Arthritis",
+                    liver_disease: "Hypertension, Chronic Pulmonary, Lymphoma, Fluid and Electrolyte Disorders, Drug Abuse",
+                    peptic_ulcer: "(No significant variables beyond the Intercept)",
+                    aids: "Hypertension, Lymphoma, Solid Tumor without Metastasis, Fluid and Electrolyte Disorders",
+                    lymphoma: "Congestive Heart Failure, Hypothyroidism, Liver Disease, AIDS/HIV, Coagulopathy",
+                    metastatic_cancer: "Alcohol Abuse, Depression",
+                    solid_tumor: "AIDS/HIV",
+                    rheumatoid_arthritis: "Renal Failure",
+                    coagulopathy: "Pulmonary Circulation Disorders, Lymphoma, Fluid and Electrolyte Disorders, Alcohol Abuse",
+                    obesity: "Pulmonary Circulation Disorders, Chronic Pulmonary, Alcohol Abuse",
+                    weight_loss: "Other Neurological Disorders, Alcohol Abuse",
+                    fluid_electrolyte: "Cardiac Arrhythmias, Valvular Disease, Hypertension, Complicated Diabetes, Liver Disease, AIDS/HIV, Coagulopathy, Depression",
+                    blood_loss_anemia: "(No significant variables beyond the Intercept)",
+                    deficiency_anemias: "Cardiac Arrhythmias, Paralysis",
+                    alcohol_abuse: "Hypertension, Chronic Pulmonary, Complicated Diabetes, Metastatic Cancer, Coagulopathy, Obesity, Weight Loss, Drug Abuse, Depression",
+                    drug_abuse: "Cardiac Arrhythmias, Valvular Disease, Hypertension, Chronic Pulmonary, Complicated Diabetes, Liver Disease, Alcohol Abuse, Depression",
+                    psychoses: "Cardiac Arrhythmias",
+                    depression: "Hypertension, Chronic Pulmonary, Complicated Diabetes, Hypothyroidism, Liver Disease, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse"
+                };
+            } else if (subgroup == 6) {
+                var sharedDescription = "This patient is in the Subgroup6, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                // Map each disease to its specific comorbidities
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Cardiac Arrhythmias, Hypertension, Paralysis, Other Neurological Disorders, Renal Failure, Metastatic Cancer, Rheumatoid Arthritis, Weight Loss, Fluid and Electrolyte Disorders, Psychoses",
+                    cardiac_arrhythmias: "Congestive Heart Failure, Peripheral Vascular Disease, Pulmonary Circulation Disorders, Paralysis, Other Neurological Disorders, Hypothyroidism, Renal Failure, Weight Loss, Fluid and Electrolyte Disorders, Psychoses, Alcohol Abuse, Drug Abuse",
+                    valvular_disease: "Pulmonary Circulation Disorders, Paralysis, Other Neurological Disorders, Metastatic Cancer, Obesity, Weight Loss, Fluid and Electrolyte Disorders",
+                    pulmonary_circulation: "Age, Cardiac Arrhythmias, Valvular Disease, Paralysis, Metastatic Cancer",
+                    peripheral_vascular: "Cardiac Arrhythmias, Paralysis, Chronic Pulmonary, Fluid and Electrolyte Disorders, Depression",
+                    hypertension: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Paralysis, Other Neurological Disorders, Uncomplicated Diabetes, Renal Failure, Lymphoma, Metastatic Cancer, Solid Tumor without Metastasis, Obesity, Weight Loss, Fluid and Electrolyte Disorders, Alcohol Abuse, Depression",
+                    paralysis: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Pulmonary Circulation Disorders, Peripheral Vascular Disease, Hypertension, Complicated Diabetes, Liver Disease, Lymphoma, Metastatic Cancer, Solid Tumor without Metastasis, Rheumatoid Arthritis, Coagulopathy, Obesity, Fluid and Electrolyte Disorders, Psychoses",
+                    other_neurological: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Hypertension, Complicated Diabetes, Hypothyroidism, Peptic Ulcer, Lymphoma, Metastatic Cancer, Solid Tumor without Metastasis, Rheumatoid Arthritis, Coagulopathy, Obesity, Weight Loss, Fluid and Electrolyte Disorders, Blood Loss Anemia, Deficiency Anemias, Alcohol Abuse, Psychoses",
+                    chronic_pulmonary: "Peripheral Vascular Disease, Renal Failure, Alcohol Abuse, Psychoses, Depression",
+                    diabetes_uncomplicated: "Cardiac Arrhythmias, Hypertension, Liver Disease, Lymphoma, Metastatic Cancer, Obesity, Fluid and Electrolyte Disorders, Psychoses",
+                    diabetes_complicated: "Paralysis, Other Neurological Disorders, Metastatic Cancer, Fluid and Electrolyte Disorders",
+                    hypothyroidism: "Cardiac Arrhythmias, Other Neurological Disorders, Solid Tumor without Metastasis, Rheumatoid Arthritis, Obesity, Weight Loss, Fluid and Electrolyte Disorders, Blood Loss Anemia, Deficiency Anemias, Depression",
+                    renal_failure: "Congestive Heart Failure, Cardiac Arrhythmias, Hypertension, Chronic Pulmonary, Rheumatoid Arthritis",
+                    liver_disease: "Paralysis, Uncomplicated Diabetes, Metastatic Cancer",
+                    peptic_ulcer: "Other Neurological Disorders",
+                    aids: "(No significant variables)",
+                    lymphoma: "Congestive Heart Failure, Hypertension, Paralysis, Other Neurological Disorders, Uncomplicated Diabetes, Metastatic Cancer, Solid Tumor without Metastasis, Coagulopathy, Weight Loss, Fluid and Electrolyte Disorders, Psychoses",
+                    metastatic_cancer: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Pulmonary Circulation Disorders, Hypertension, Paralysis, Other Neurological Disorders, Uncomplicated Diabetes, Complicated Diabetes, Liver Disease, Lymphoma, Rheumatoid Arthritis, Coagulopathy, Weight Loss, Fluid and Electrolyte Disorders, Deficiency Anemias, Psychoses",
+                    solid_tumor: "Valvular Disease, Hypertension, Paralysis, Other Neurological Disorders, Hypothyroidism, Lymphoma, Rheumatoid Arthritis, Fluid and Electrolyte Disorders, Deficiency Anemias, Psychoses",
+                    rheumatoid_arthritis: "Congestive Heart Failure, Paralysis, Other Neurological Disorders, Hypothyroidism, Renal Failure, Metastatic Cancer, Solid Tumor without Metastasis, Fluid and Electrolyte Disorders, Psychoses",
+                    coagulopathy: "Paralysis, Other Neurological Disorders, Lymphoma, Metastatic Cancer, Weight Loss, Alcohol Abuse, Depression",
+                    obesity: "Valvular Disease, Hypertension, Paralysis, Other Neurological Disorders, Chronic Pulmonary, Uncomplicated Diabetes, Hypothyroidism, Rheumatoid Arthritis, Fluid and Electrolyte Disorders, Depression",
+                    weight_loss: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Hypertension, Other Neurological Disorders, Hypothyroidism, Lymphoma, Coagulopathy",
+                    fluid_electrolyte: "Congestive Heart Failure, Cardiac Arrhythmias, Valvular Disease, Peripheral Vascular Disease, Hypertension, Paralysis, Other Neurological Disorders, Uncomplicated Diabetes, Complicated Diabetes, Hypothyroidism, Lymphoma, Metastatic Cancer, Solid Tumor without Metastasis, Rheumatoid Arthritis, Obesity, Blood Loss Anemia, Deficiency Anemias, Psychoses, Depression",
+                    blood_loss_anemia: "Other Neurological Disorders, Hypothyroidism, Obesity, Fluid and Electrolyte Disorders, Depression",
+                    deficiency_anemias: "Other Neurological Disorders, Hypothyroidism, Metastatic Cancer, Solid Tumor without Metastasis, Fluid and Electrolyte Disorders, Depression",
+                    alcohol_abuse: "Hypertension, Other Neurological Disorders, Chronic Pulmonary",
+                    drug_abuse: "Cardiac Arrhythmias",
+                    psychoses: "Congestive Heart Failure, Cardiac Arrhythmias, Paralysis, Other Neurological Disorders, Chronic Pulmonary, Uncomplicated Diabetes, Metastatic Cancer, Solid Tumor without Metastasis, Rheumatoid Arthritis, Fluid and Electrolyte Disorders",
+                    depression: "Peripheral Vascular Disease, Hypertension, Chronic Pulmonary, Hypothyroidism, Coagulopathy, Obesity, Fluid and Electrolyte Disorders, Blood Loss Anemia, Deficiency Anemias"
+                };
+            } else if (subgroup == 7) {
+                var sharedDescription = "This patient is in the Subgroup7, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+
+                // Map each disease to its specific comorbidities
+                var diseaseDescriptions = {
+                    congestive_heart_failure: "Valvular Disease, Pulmonary Circulation Disorders, Hypertension, Uncomplicated Diabetes, Complicated Diabetes, Chronic Pulmonary Conditions, Renal Failure",
+                    cardiac_arrhythmias: "Valvular Disease, Hypertension, Hypothyroidism, Fluid and Electrolyte Disorders",
+                    valvular_disease: "Congestive Heart Failure, Cardiac Arrhythmias, Complicated Diabetes, Metastatic Cancer, Obesity",
+                    pulmonary_circulation: "Congestive Heart Failure, Chronic Pulmonary, Uncomplicated Diabetes, Complicated Diabetes, Obesity, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse, Psychoses, Depression",
+                    peripheral_vascular: "Complicated Diabetes, Renal Failure, Alcohol Abuse",
+                    hypertension: "Congestive Heart Failure, Cardiac Arrhythmias, Uncomplicated Diabetes, Renal Failure, Depression",
+                    paralysis: "Other Neurological Disorders",
+                    other_neurological: "Paralysis, Weight Loss",
+                    chronic_pulmonary: "Congestive Heart Failure, Pulmonary Circulation Disorders",
+                    diabetes_uncomplicated: "Congestive Heart Failure, Pulmonary Circulation Disorders, Hypertension, Obesity, Alcohol Abuse, Psychoses",
+                    diabetes_complicated: "Congestive Heart Failure, Valvular Disease, Pulmonary Circulation Disorders, Peripheral Vascular Disease, Renal Failure, Rheumatoid Arthritis, Obesity, Depression",
+                    hypothyroidism: "Cardiac Arrhythmias, Depression",
+                    renal_failure: "Congestive Heart Failure, Peripheral Vascular Disease, Hypertension, Uncomplicated Diabetes, Complicated Diabetes, Coagulopathy, Fluid and Electrolyte Disorders",
+                    liver_disease: "Uncomplicated Diabetes, Peptic Ulcer, Solid Tumor without Metastasis, Coagulopathy, Obesity, Fluid and Electrolyte Disorders, Alcohol Abuse",
+                    peptic_ulcer: "Peripheral Vascular Disease, Liver Disease, Fluid and Electrolyte Disorders",
+                    aids: "(No significant variables)",
+                    lymphoma: "(No significant variables)",
+                    metastatic_cancer: "Valvular Disease",
+                    solid_tumor: "Liver Disease, Weight Loss",
+                    rheumatoid_arthritis: "Complicated Diabetes",
+                    coagulopathy: "Renal Failure, Liver Disease, Weight Loss, Fluid and Electrolyte Disorders, Deficiency Anemias",
+                    obesity: "Valvular Disease, Pulmonary Circulation Disorders, Uncomplicated Diabetes, Complicated Diabetes, Liver Disease, Alcohol Abuse",
+                    weight_loss: "Other Neurological Disorders, Solid Tumor without Metastasis, Coagulopathy, Depression",
+                    fluid_electrolyte: "Cardiac Arrhythmias, Pulmonary Circulation Disorders, Renal Failure, Liver Disease, Coagulopathy",
+                    blood_loss_anemia: "(No significant variables beyond the Intercept and Age)",
+                    deficiency_anemias: "Coagulopathy",
+                    alcohol_abuse: "Congestive Heart Failure, Pulmonary Circulation Disorders, Peripheral Vascular Disease, Uncomplicated Diabetes, Liver Disease, Obesity",
+                    drug_abuse: "Pulmonary Circulation Disorders, Peptic Ulcer, AIDS/HIV",
+                    psychoses: "Valvular Disease, Pulmonary Circulation Disorders, Depression",
+                    depression: "Pulmonary Circulation Disorders, Hypertension, Complicated Diabetes, Hypothyroidism, Psychoses"
+                    
+                };
+            }
+
+            function getDiseaseDescription(diseaseKey) {
+                var comorbidities = diseaseDescriptions[diseaseKey];
+                if (!comorbidities) {
+                    return "Select a disease to see its description.";
+                }
+                // Convert comorbidities string to an HTML bulleted list
+                var comorbiditiesList = comorbidities.split(', ').map(function(comorbidity) {
+                    return '<li> - ' + comorbidity + '</li>';
+                }).join('');
+                // Replace placeholders with actual disease and formatted comorbidities
+                return sharedDescription.replace('{disease}', diseaseKey.replace(/_/g, ' ')).replace('{comorbidities}', comorbiditiesList);
+            }
             var visualSelector = document.getElementById('visualSelector');
             var visualContainer = document.getElementById('visContainer');
 
