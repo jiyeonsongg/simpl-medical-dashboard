@@ -88,8 +88,8 @@ def main():
     o2sat_df = process_o2sat_table(conn)
     chartevents_6_o2sat_df = process_other_o2sat_table(6, conn)
 
-    csv_path_1 = 'chartevents_o2sat.csv'
-    csv_path_2 =  'chartevents_6_o2sat.csv'
+    csv_path_1 = '../processed_data/chartevents_o2sat.csv'
+    csv_path_2 =  '../processed_data/chartevents_6_o2sat.csv'
   
     o2sat_df.to_csv(csv_path_1, index=False)
     chartevents_6_o2sat_df.to_csv(csv_path_2, index=False)

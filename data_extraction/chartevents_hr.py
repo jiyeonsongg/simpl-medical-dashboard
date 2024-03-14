@@ -103,9 +103,9 @@ def main():
     chartevents_12_hr_df = process_other_hr_table(12, conn)
    
 
-    csv_path_1 = 'chartevents_hr.csv'
-    csv_path_2 =  'chartevents_3_hr.csv'
-    csv_path_3 = 'chartevents_12_hr.csv'
+    csv_path_1 = '../processed_data/chartevents_hr.csv'
+    csv_path_2 =  '../processed_data/chartevents_3_hr.csv'
+    csv_path_3 = '../processed_data/chartevents_12_hr.csv'
 
     hr_df.to_csv(csv_path_1, index=False)
     chartevents_3_hr_df.to_csv(csv_path_2, index=False)
