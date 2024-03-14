@@ -4,7 +4,6 @@
 Our project focuses on creating a comprehensive dashboard for predicting sepsis risk in MIMIC-III patients. Instead of treating symptoms in isolation, we adopt a holistic approach that considers the complex relationships between various medical conditions. Using Latent Class Analysis, we classify ICU patients into seven distinct subgroups, each representing a unique health profile, defined by features such as age, pre-existing conditions, previous procedures, vitals, and more. While our model uses the traditional approach of monitoring patient vitals to predict sepsis risk, we combine the knowledge of comorbidity subgroups in the data to target certain vitals for more accurate prediction. Our dashboard aims to visualize our model's function as well as the patient's profile in relation to our predicted sepsis score to enhance medical professionals' assessment of sepsis risk in the ICU. 
 
 
-
 ## Contributions
 - Jiyeon Song: jis036@ucsd.edu
 - Oakkar Aung: oaaung@ucsd.edu
@@ -14,6 +13,7 @@ Our project focuses on creating a comprehensive dashboard for predicting sepsis 
 
 ### dashboard_website
 Consists of HTML files for each page in the dashboard, and data for display.
+Link to the Medical Dashboard: 
 
 ### machine_learning
 consists of the machine learning models used to predict subgroup and predict sepsis risk 
@@ -23,7 +23,7 @@ consists of the machine learning models used to predict subgroup and predict sep
 ### statistical_analysis
 Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
 
-Example of _01_lca_8subgroups:_
+Example of _01_lca_subgroups:_
 1. `install.packages("poLCA")`
 2. `library poLCA`
 3. Run the code
@@ -47,8 +47,8 @@ Deactivate the environment when all done: <br>
     `python chartevents_temp.py`<br>
     `python chartevents_wbc.py`<br>
 - Other files:
-    - data_processing.ipynb: Data processing code
-    - eda_subgroups: EDA on vitals data
+    - 01_data_processing.ipynb: Data processing code
+    - 03_eda_vitals: EDA on vitals data
 
 
 

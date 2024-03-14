@@ -9,6 +9,7 @@ dependencies:
   - scipy
   - matplotlib
   - numpy
+  - xgboost
 
  
 
