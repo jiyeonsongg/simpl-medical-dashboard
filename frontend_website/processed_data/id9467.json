@@ -4,11 +4,10 @@
     "subgroup": 7,
     "latest_blood_pressure": 53.0,
     "latest_chart_time": "2133-05-08T17:00:00",
-    "latest_temp_F": 95.720002746582,
+    "latest_temp_F": 95.72,
     "latest_heart_rate": 70.0,
     "latest_respiratory_rate": 39.0,
     "elixhauser": [
-        "Congestive Heart Failure",
         "Cardiac Arrhythmias",
         "Valvular Disease",
         "Pulmonary Circulation",
@@ -23,5 +22,6 @@
     "age": 87,
     "spo2": 96.0,
     "sofa": 3,
-    "prob": 99.0
+    "prob": 99.0,
+    "white_blood": 12300.0
 }

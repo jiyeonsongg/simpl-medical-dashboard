@@ -4,11 +4,10 @@
     "subgroup": 1,
     "latest_blood_pressure": 181.0,
     "latest_chart_time": "2120-12-17T09:30:00",
-    "latest_temp_F": 97.3000427246094,
+    "latest_temp_F": 97.3,
     "latest_heart_rate": 70.0,
     "latest_respiratory_rate": 15.0,
     "elixhauser": [
-        "Congestive Heart Failure",
         "Cardiac Arrhythmias",
         "Hypertension",
         "Diabetes Complicated",
@@ -20,5 +19,6 @@
     "age": 66,
     "spo2": 94.0,
     "sofa": 13,
-    "prob": 99.0
+    "prob": 99.0,
+    "white_blood": 14800.0
 }

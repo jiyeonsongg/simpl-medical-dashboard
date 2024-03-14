@@ -4,11 +4,10 @@
     "subgroup": 3,
     "latest_blood_pressure": 104.0,
     "latest_chart_time": "2193-02-20T08:00:00",
-    "latest_temp_F": 94.400057220459,
+    "latest_temp_F": 94.4,
     "latest_heart_rate": 73.0,
     "latest_respiratory_rate": 26.0,
     "elixhauser": [
-        "Congestive Heart Failure",
         "Hypertension",
         "Liver Disease",
         "Coagulopathy",
@@ -17,5 +16,6 @@
     "age": 58,
     "spo2": 96.0,
     "sofa": 13,
-    "prob": 99.0
+    "prob": 99.0,
+    "white_blood": 9800.0
 }

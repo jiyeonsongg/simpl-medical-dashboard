@@ -4,7 +4,7 @@
     "subgroup": 3,
     "latest_blood_pressure": 119.0,
     "latest_chart_time": "2188-09-14T12:00:00",
-    "latest_temp_F": 99.800057220459,
+    "latest_temp_F": 99.8,
     "latest_heart_rate": 72.0,
     "latest_respiratory_rate": 11.0,
     "elixhauser": [
@@ -15,5 +15,6 @@
     "age": 39,
     "spo2": 94.0,
     "sofa": 8,
-    "prob": 99.0
+    "prob": 99.0,
+    "white_blood": 24100.0
 }
