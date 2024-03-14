@@ -30,9 +30,9 @@ Link to the Medical Dashboard:
 
 ### machine_learning
 consists of the machine learning models used to predict subgroup and predict sepsis risk 
-01_subgroup_likelihood: uses XGBoost to calculate the likelihood of a patient being in its assigned subgroup 
-02_sepsis_risk_classification_subgroup: uses random forest classifier to create models for each subgroup 
-03_sepsis_risk_classification_all_population: uses random forest classifier to create models for the entire patient population
+- 01_subgroup_likelihood: uses XGBoost to calculate the likelihood of a patient being in its assigned subgroup
+- 02_sepsis_risk_classification_subgroup: uses random forest classifier to create models for each subgroup
+- 03_sepsis_risk_classification_all_population: uses random forest classifier to create models for the entire patient population
 
 ### statistical_analysis
 Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
