@@ -191,7 +191,7 @@
             const nextStepsElement = document.getElementById('nextSteps');
 
             // Define the instructions for low risk next steps, incorporating machine learning model details
-            const lowRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a low (green flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 7 and 10, inclusive. <br><br> The patient currently appears to be stable, but continuous observation is recommended. Please ensure regular monitoring of vital signs and reassess the patient's condition periodically to detect any unforeseen changes or deterioration.";
+            const lowRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a low (green flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 0 and 4, inclusive. <br><br> The patient currently appears to be stable, but continuous observation is recommended. Please ensure regular monitoring of vital signs and reassess the patient's condition periodically to detect any unforeseen changes or deterioration.";
 
             // Updating the innerHTML of the targeted element with the low risk steps
             nextStepsElement.innerHTML = lowRiskSteps;
@@ -213,7 +213,7 @@
             const nextStepsElement = document.getElementById('nextSteps');
 
             // Define the instructions for medium risk next steps, incorporating machine learning model details
-            const mediumRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a medium (yellow flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with other factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 4 and 6, inclusive. <br><br> Please conduct a thorough review of the patient's medical history, including comorbidity conditions and current vital sign metrics, to mitigate the risk of sepsis onset. Regular monitoring and potential intervention may be required. It is important to note that our model's accuracy ranges from 60 to 70% per subgroup, which underscores the need for clinical judgment in conjunction with the algorithm's predictions.";
+            const mediumRiskSteps = "According to our Random Forest Classifier-based machine learning algorithm, this patient has been classified as having a medium (yellow flag) risk of developing sepsis. This classification is based on an analysis of the patient's vital signs (temperature, blood pressure, heart rate, oxygen level, respiratory rate) and existing comorbidities, along with other factors such as number of readmissions, hours in the hospital per admission, and age. The predicted SOFA score range for this category is between 5 and 11, inclusive. <br><br> Please conduct a thorough review of the patient's medical history, including comorbidity conditions and current vital sign metrics, to mitigate the risk of sepsis onset. Regular monitoring and potential intervention may be required. It is important to note that our model's accuracy ranges from 60 to 70% per subgroup, which underscores the need for clinical judgment in conjunction with the algorithm's predictions.";
 
             // Updating the innerHTML of the targeted element with the medium risk steps
             nextStepsElement.innerHTML = mediumRiskSteps;
@@ -221,13 +221,13 @@
 
         function getSubgroup(number) {
             const subgroups = {
-                1: "Cardiopulmonary",
-                2: "Young",
+                1: "Complicated Diabetes",
+                2: "Cardiac",
                 3: "Hepatic/Addiction",
-                4: "Complicated Diabetes",
-                5: "Uncomplicated Diabetes",
-                6: "Cardiac",
-                7: "Unknown"
+                4: "Uncomplicated Diabetes",
+                5: "Young",
+                6: "Unknown",
+                7: "Cardiopulmonary"
             };
 
             return subgroups[number] || "Invalid Input";
@@ -318,7 +318,7 @@
             });
 
             if (subgroup == 1){
-                var sharedDescription = "This patient is in the Cardiopulmonary group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Complicated Diabetes group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 var diseaseDescriptions = {
                     congestive_heart_failure: "Cardiac Arrhythmias, Valvular Disease, Hypertension, Chronic Pulmonary Conditions, Complicated Diabetes, Renal Failure, Coagulopathy",
@@ -353,7 +353,7 @@
                     depression: "Hypertension, Chronic Pulmonary, Hypothyroidism, Renal Failure, Fluid and Electrolyte Disorders"
                 };
             } else if (subgroup == 2) {
-                var sharedDescription = "This patient is in the Subgroup2, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Cardiac group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 // Map each disease to its specific comorbidities
                 var diseaseDescriptions = {
@@ -389,7 +389,7 @@
                     depression: "Hypertension, Other Neurological Disorders, Hypothyroidism, Liver Disease, Deficiency Anemias"
                 };
             } else if (subgroup == 3) {
-                var sharedDescription = "This patient is in the Subgroup3, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Hepatic/Addiction group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 // Map each disease to its specific comorbidities
                 var diseaseDescriptions = {
@@ -425,7 +425,7 @@
                     depression: "Congestive Heart Failure, Hypertension, Chronic Pulmonary, Hypothyroidism, Liver Disease, Solid Tumor without Metastasis, Coagulopathy, Drug Abuse"
                 };
             } else if (subgroup == 4) {
-                var sharedDescription = "This patient is in the Subgroup4, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Uncomplicated Diabetes group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 // Map each disease to its specific comorbidities
                 var diseaseDescriptions = {
@@ -461,7 +461,7 @@
                     depression: "Hypertension, Uncomplicated Diabetes, Renal Failure, Obesity, Drug Abuse"
                 };
             } else if (subgroup == 5) {
-                var sharedDescription = "This patient is in the Subgroup5, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Young group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 // Map each disease to its specific comorbidities
                 var diseaseDescriptions = {
@@ -497,7 +497,7 @@
                     depression: "Hypertension, Chronic Pulmonary, Complicated Diabetes, Hypothyroidism, Liver Disease, Fluid and Electrolyte Disorders, Alcohol Abuse, Drug Abuse"
                 };
             } else if (subgroup == 6) {
-                var sharedDescription = "This patient is in the Subgroup6, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Unknown group, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 // Map each disease to its specific comorbidities
                 var diseaseDescriptions = {
@@ -533,7 +533,7 @@
                     depression: "Peripheral Vascular Disease, Hypertension, Chronic Pulmonary, Hypothyroidism, Coagulopathy, Obesity, Fluid and Electrolyte Disorders, Blood Loss Anemia, Deficiency Anemias"
                 };
             } else if (subgroup == 7) {
-                var sharedDescription = "This patient is in the Subgroup7, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
+                var sharedDescription = "This patient is in the Cardiopulmonary, and the following comorbidities have been found to be highly correlated with {disease}: <ul style='margin-left: 20px;'>{comorbidities}</ul><br> The significant correlation (p <= 0.01) suggests that these conditions may share common risk factors with {disease} or could contribute to its development or severity.";
 
                 // Map each disease to its specific comorbidities
                 var diseaseDescriptions = {
