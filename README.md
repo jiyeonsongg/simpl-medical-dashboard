@@ -11,14 +11,28 @@ Our project focuses on creating a comprehensive dashboard for predicting sepsis 
 - Vibha Sastry: vsastry@ucsd.edu
 - Mentor: Professor Kyle Shannon: kshannon@ucsd.edu
 
+### Accessing Data 
+MIMIC-III Access
+Create PhysioNet Account and CITI Program Account.
+Follow instructions to complete "CITI Data or Specimens Only Research" course with over 90 percent pass rate.
+Upload course report to PhysioNet under training tab.
+Apply for credentialing on PhysioNet and wait 1 day to 3 weeks for approval.
+Sign "Data Use Agreement" and then have access to data.
+MIMIC-III Local Database Setup
+We created the MIMIC-III Local Database following the instructions provided by MIT-LCP (Laboratory of Computer Physiology) found here.
+
+Data Prep and Processing
+Place raw MIMIC data for MIMIC-III dataset into the raw_data folder. Run selected_datasets.sql to process data and keep processed data in the processed_data folder.
+
 ### dashboard_website
 Consists of HTML files for each page in the dashboard, and data for display.
 Link to the Medical Dashboard: 
 
 ### machine_learning
 consists of the machine learning models used to predict subgroup and predict sepsis risk 
-01_comborbodity_group_prediction: the model used to predict the subgroups 
-02_vital_sign_subgroup_1_prediction: the model used to predict sepsis risk 
+01_subgroup_likelihood: uses XGBoost to calculate the likelihood of a patient being in its assigned subgroup 
+02_sepsis_risk_classification_subgroup: uses random forest classifier to create models for each subgroup 
+03_sepsis_risk_classification_all_population: uses random forest classifier to create models for the entire patient population
 
 ### statistical_analysis
 Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
