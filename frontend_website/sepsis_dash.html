@@ -10,22 +10,17 @@
     <header class="bg-gray-800 text-white text-center p-4 flex justify-between items-center">
         <a href="index.html" class="flex items-center"> <!-- Use flex and items-center to align items horizontally -->
             <img src="images/logo.png" alt="Logo" class="h-12"> <!-- Your logo image -->
-            <span class="ml-3 text-xl font-bold">SIMPL: Sepsis Insight and Management Platform</span> <!-- Your logo text right next to the image -->
+            <span class="ml-3 text-xl font-bold">Sepsis Insight and Management Platform (SIMPL)</span> <!-- Your logo text right next to the image -->
         </a>
-        <button id="toggleSidebar" class="px-4 py-2 text-white">☰</button>
+        <nav class="flex items-center">
+            <ul class="list-none flex space-x-4">
+                <li><a href="index.html" class="text-white hover:text-gray-300">Sepsis Risk</a></li>
+                <li><a href="about_us.html" class="text-white hover:text-gray-300">About Us</a></li>
+                <li><a href="report.html" class="text-white hover:text-gray-300">Report</a></li>
+            </ul>
+        </nav>
     </header>
     <div id="dashboard" class="flex flex-1 relative">
-        <aside id="sidebar" class="bg-gray-100 p-4 w-64 absolute inset-y-0 right-0 transform translate-x-full transition-transform duration-300 ease-in-out z-10">
-            <nav>
-                <ul>
-                    <li><a href="subgroups.html" class="text-blue-600 hover:text-blue-700">Subgroups</a></li>
-                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Sepsis Risk</a></li>
-                    <li><a href="about_us.html" class="text-blue-600 hover:text-blue-700">About Us</a></li>
-                    <li><a href="report.html" class="text-blue-600 hover:text-blue-700">Report</a></li>
-                    <!-- More links for other visualizations -->
-                </ul>
-            </nav>
-        </aside>
         <section id="main-content" class="flex-1 p-4 flex flex-col justify-center items-center">
             <div class="grid grid-cols-2 w-full h-full gap-4">
                 <!-- Left side -->
@@ -48,17 +43,24 @@
                             <div id="sofa_display"></div>
                         </div>
                     </div>
-                    <div id="elixhauser" class="bg-white p-4 border border-gray-300 rounded-lg">
-                        <tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
-                        </tableau-viz>
+                    <div class="bg-white p-4 border border-gray-300 rounded-lg">
+                        <select id="visualSelector2">
+                            <option value="visual3">Subgroups: Age</option>
+                            <option value="visual4">Subgroups: Composition</option>
+                            <!-- Add more options for additional visuals -->
+                        </select>
+                        <div id="visContainer2"><tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz></div>
                     </div>
                     <div class="bg-white p-4 border border-gray-300 rounded-lg col-span-2 row-span-2">
                         <select id="visualSelector">
                             <option value="visual1">Procedure History</option>
-                            <option value="visual2">Vitals Timeline</option>
+                            <option value="visual2">Patient: General Vitals</option>
+                            <option value="visual5">Patient: Frequent Vitals</option>
                             <!-- Add more options for additional visuals -->
                         </select>
-                        <div id="visContainer"></div>
+                        <div id="visContainer"><tableau-viz id="tableauViz" src='https://public.tableau.com/views/ProcedureTimeline/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz></div>
                         <!-- <div id="d3VisualContainer"></div> Container for Visuals -->
                     </div>
                 </div>
@@ -68,10 +70,15 @@
                     <div class="bg-white p-4 border border-gray-300 rounded-lg">
                         <h2 class="text-xl font-semibold mb-4 text-center">Patient Group Analysis</h2>
                         <div class="text-center p-9 my-4 bg-blue-100 rounded-lg">
-                            <h3 class="text-xl font-bold">Cardiopulmonary Group</h3>
-                            <p class="text-green-600">Likelihood: <span class="font-bold">83%</span></p>
+                            <h3 id='group1' class="text-xl font-bold"></h3>
+                            <p class="text-green-600">Likelihood: <span id="confidence_level"class="font-bold"></span>%</p>
                         </div>
-                        <p class="text-sm text-gray-600 italic mb-4">Our automated analysis is 83% confident this patient belongs in the Cardiopulmonary subgroup. This is taken into account for our sepsis risk analysis.</p>
+                        <p class="text-sm text-gray-600 italic mb-4">
+                            Our automated analysis is 
+                            <span id="confidence_level2"></span>% 
+                            confident this patient belongs in the <span id="group2"></span> subgroup. 
+                            This is taken into account for our sepsis risk analysis.
+                        </p>
                         <h2 class="text-xl font-semibold mb-4 text-center">Elixhauser Comorbidity Categories</h2>
                         <ul id="comorbidity" class="list-disc pl-5">
                         </ul>
@@ -137,12 +144,6 @@
         DSC 180B
     </footer>
     <script>
-        document.getElementById('toggleSidebar').addEventListener('click', function() {
-            var sidebar = document.getElementById('sidebar');
-            // Toggle between translate-x-full and translate-x-0 to show/hide the sidebar
-            sidebar.classList.toggle('translate-x-full');
-            sidebar.classList.toggle('translate-x-0');
-        });
 
         // Function to update the text in the right half
         function updateText(subgroupName) {
@@ -215,6 +216,20 @@
             nextStepsElement.innerHTML = mediumRiskSteps;
         }
 
+        function getSubgroup(number) {
+            const subgroups = {
+                1: "Cardiopulmonary",
+                2: "Young",
+                3: "Hepatic/Addiction",
+                4: "Complicated Diabetes",
+                5: "Uncomplicated Diabetes",
+                6: "Cardiac",
+                7: "Unknown"
+            };
+
+            return subgroups[number] || "Invalid Input";
+        }
+
         // Set the background color of the body based on the risk color
         if (riskColor === 'green') {
             document.getElementById('risk_banner').innerHTML = `<div id="risk_banner" class="text-center p-4 my-4 bg-green-100 border-l-4 border-green-500 rounded-lg">
@@ -261,6 +276,10 @@
                     document.getElementById('bp_display').innerHTML = `<strong>Blood Pressure:</strong> ${data.latest_blood_pressure} mmHg`;
                     document.getElementById('spo2_display').innerHTML = `<strong>Blood Oxygen:</strong> ${data.spo2}%`;
                     document.getElementById('sofa_display').innerHTML = `<strong>SOFA Score:</strong> ${data.sofa}`;
+                    document.getElementById('confidence_level').innerHTML = data.prob;
+                    document.getElementById('confidence_level2').innerHTML = data.prob;
+                    document.getElementById('group1').innerHTML = getSubgroup(data.subgroup)
+                    document.getElementById('group2').innerHTML = getSubgroup(data.subgroup)
 
                     const listElement = document.querySelector('#comorbidity');
                     listElement.innerHTML = '';  // Clear existing list items
@@ -287,15 +306,31 @@
         document.addEventListener('DOMContentLoaded', function() {
             var visualSelector = document.getElementById('visualSelector');
             var visualContainer = document.getElementById('visContainer');
-            visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/ProcedureTimeline/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
-                        </tableau-viz>`;
+
+            var visualSelector2 = document.getElementById('visualSelector2');
+            var visualContainer2 = document.getElementById('visContainer2');
 
             visualSelector.addEventListener('change', function() {
                 if (this.value === 'visual1') {
                     visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/ProcedureTimeline/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
                         </tableau-viz>`;
                 } else if (this.value === 'visual2') {
-                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardPatientVitals/Sheet2?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardPatientVitals/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>`;
+                }
+                else if (this.value === 'visual5') {
+                    visualContainer.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/WBCVitals/Sheet1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>`;
+                }
+            });
+
+            visualSelector2.addEventListener('change', function() {
+                if (this.value === 'visual3') {
+                    visualContainer2.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SepsisDashboardTableauWork/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
+                        </tableau-viz>`;
+                }
+                else if (this.value === 'visual4') {
+                    visualContainer2.innerHTML = `<tableau-viz id="tableauViz" src='https://public.tableau.com/views/SubgroupComposition/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link'>
                         </tableau-viz>`;
                 }
             });

@@ -1,0 +1,17 @@
+{
+    "name": "John Doe",
+    "subject_id": 25111,
+    "subgroup": 4,
+    "latest_blood_pressure": 86.0,
+    "latest_chart_time": "2148-04-23T08:00:00",
+    "latest_temp_F": 94.8000213623047,
+    "latest_heart_rate": 88.0,
+    "latest_respiratory_rate": 17.0,
+    "elixhauser": [
+        "Congestive Heart Failure"
+    ],
+    "age": 56,
+    "spo2": 97.0,
+    "sofa": 13,
+    "prob": 93.0
+}

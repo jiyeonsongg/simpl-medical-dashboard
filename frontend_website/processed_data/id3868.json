@@ -1,0 +1,20 @@
+{
+    "name": "John Doe",
+    "subject_id": 3868,
+    "subgroup": 4,
+    "latest_blood_pressure": 100.0,
+    "latest_chart_time": "2125-09-28T11:00:00",
+    "latest_temp_F": 96.9000785827637,
+    "latest_heart_rate": 103.0,
+    "latest_respiratory_rate": 28.0,
+    "elixhauser": [
+        "Hypertension",
+        "Chronic Pulmonary",
+        "Diabetes Uncomplicated",
+        "Coagulopathy"
+    ],
+    "age": 65,
+    "spo2": 100.0,
+    "sofa": 1,
+    "prob": 73.0
+}

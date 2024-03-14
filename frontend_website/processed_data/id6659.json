@@ -1,0 +1,19 @@
+{
+    "name": "John Doe",
+    "subject_id": 6659,
+    "subgroup": 6,
+    "latest_blood_pressure": 135.0,
+    "latest_chart_time": "2182-06-02T12:00:00",
+    "latest_temp_F": 98.000057220459,
+    "latest_heart_rate": 87.0,
+    "latest_respiratory_rate": 25.0,
+    "elixhauser": [
+        "Cardiac Arrhythmias",
+        "Metastatic Cancer",
+        "Coagulopathy"
+    ],
+    "age": 75,
+    "spo2": 94.0,
+    "sofa": 1,
+    "prob": 99.0
+}
