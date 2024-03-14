@@ -1,0 +1,23 @@
+{
+    "name": "John Doe",
+    "subject_id": 17795,
+    "subgroup": 7,
+    "latest_blood_pressure": 130.0,
+    "latest_chart_time": "2201-02-03T16:00:00",
+    "latest_temp_F": 96.6000213623047,
+    "latest_heart_rate": 103.0,
+    "latest_respiratory_rate": 26.0,
+    "elixhauser": [
+        "Congestive Heart Failure",
+        "Cardiac Arrhythmias",
+        "Valvular Disease",
+        "Chronic Pulmonary",
+        "Coagulopathy",
+        "Weight Loss",
+        "Fluid Electrolyte"
+    ],
+    "age": 59,
+    "spo2": 96.0,
+    "sofa": 11,
+    "prob": 84.0
+}
