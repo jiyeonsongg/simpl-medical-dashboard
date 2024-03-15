@@ -20,13 +20,14 @@ Apply for credentialing on PhysioNet and wait 1 day to 3 weeks for approval.
 Sign "Data Use Agreement" and then have access to data.
 MIMIC-III Local Database Setup
 We created the MIMIC-III Local Database following the instructions provided by MIT-LCP (Laboratory of Computer Physiology) found here.
-
+lin
 Data Prep and Processing
 Place raw MIMIC data for MIMIC-III dataset into the raw_data folder. Run selected_datasets.sql to process data and keep processed data in the processed_data folder.
 
 ### dashboard_website
 Consists of HTML files for each page in the dashboard, and data for display.
-Link to the Medical Dashboard: 
+
+Link to the Medical Dashboard: https://oakkaraung.github.io/website_dsc180/
 
 ### machine_learning
 consists of the machine learning models used to predict subgroup and predict sepsis risk 
