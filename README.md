@@ -26,18 +26,19 @@ lin
 Data Prep and Processing
 Place raw MIMIC data for MIMIC-III dataset into the raw_data folder. Run selected_datasets.sql to process data and keep processed data in the processed_data folder.
 
-## dashboard_website
+## Project Contents
+### dashboard_website
 Consists of HTML files for each page in the dashboard, and data for display.
 
 Link to the Medical Dashboard: https://oakkaraung.github.io/website_dsc180/
 
-## machine_learning
+### machine_learning
 consists of the machine learning models used to predict subgroup and predict sepsis risk 
 - 01_subgroup_likelihood: uses XGBoost to calculate the likelihood of a patient being in its assigned subgroup
 - 02_sepsis_risk_classification_subgroup: uses random forest classifier to create models for each subgroup
 - 03_sepsis_risk_classification_all_population: uses random forest classifier to create models for the entire patient population
 
-## statistical_analysis
+### statistical_analysis
 Each statistical analysis file requires different R libraries. Make sure to install the right libraries before running the code.
 
 Example of _01_lca_subgroups:_
@@ -45,7 +46,7 @@ Example of _01_lca_subgroups:_
 2. `library poLCA`
 3. Run the code
 
-## environment setup for data_extraction
+### environment setup for data_extraction
 Create a new virtual environment with the command prompt using<br>
 `python -m dsc180b dsc180b_wi24_quarter2`
 
@@ -55,7 +56,7 @@ Once you have activated your environment, install all required packages using th
 Deactivate the environment when all done: <br>
 `deactivate`
 
-## data_extraction
+### data_extraction
 - Run the following lines to produce data in processed_data folder:<br>
     `python chartevents_bp.py`<br>
     `python chartevents_hr.py`<br>
